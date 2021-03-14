@@ -9,7 +9,7 @@ header_app_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImR2ci11aSIsI
 header_api_key = "9a8087f911b248c7945b926f254c833b"
 platform_android = "Android"
 app_version = "11.0"
-rmn = ""
+fallback_rmn = ""
 user = {}
 
 
@@ -36,8 +36,8 @@ def generateOTP(sid, rmn):
         if x.status_code == 200:
             msg = x.json()['message']
             if msg == 'OTP generated successfully.':
-                rmn = x.json()['data']['rmn']
-                print("Rmn:", rmn)
+                fallback_rmn = str(x.json()['data']['rmn'])
+                print("Rmn:", fallback_rmn)
                 print("OTP Generated successfully")
             else:
                 print(msg)
@@ -70,6 +70,10 @@ def loginWithPass(sid, rmn, pwd):
 
 
 def loginWithOTP(sid, rmn, otp):
+    if sid == "":
+        sid = lookupSid(rmn)
+    if rmn == "":
+        rmn = fallback_rmn
     payload = getPayload(auth=otp, sid=sid, loginOpt="OTP", rmn=rmn)
     headers = getHeaders()
     x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -120,3 +124,16 @@ def getHeaders():
 def saveUserDetailsToFile():
     with open('userDetails.json', 'w') as userDetailsFile:
         json.dump(user, userDetailsFile)
+
+
+def lookupSid(rmn):
+    url = API_BASE_URL + "rest-api/pub/api/v1/subscriberLookup" + "?rmn=" + rmn
+
+    x = requests.get(url)
+    msg = x.json()['code']
+    if msg == "We are unable to process your request. Please try again later.":
+        sid = x.json()['data']['sidList'][0]["sid"]
+        return sid
+    else:
+        print("Could not get Subscribed ID.. Message:", msg)
+        exit(0)
