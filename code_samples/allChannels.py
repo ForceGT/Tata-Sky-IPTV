@@ -2,6 +2,7 @@
 from TSPrivateAPI.code_samples.model.channel import Channel
 from constants import API_BASE_URL, API_BASE_URL_2
 import requests
+import time
 import json as json
 
 channel_list = list()
@@ -12,9 +13,12 @@ def getAllChannels():
     channel_list = x.json()['data']['list']
     print("Total Channels fetched:", len(channel_list))
     print("Fetching channel info..........")
-    for channel in channel_list:
+    for index, channel in enumerate(channel_list):
+        print("Getting index: {0}, channelId: {1}".format(index, channel['id']))
         channel_id = str(channel['id'])
         getChannelInfo(channel_id)
+    print("Saving all to a file....")
+    saveChannelsToFile()
 
 
 
@@ -30,8 +34,18 @@ def getChannelInfo(channelId):
     channel_entitlements = channel_detail_dict['entitlements']
     channel_logo = channel_meta['channelLogo']
 
-    channel = Channel(channel_name,channel_entitlements, channel_logo,channel_url, channel_license_url)
+    channel = Channel(channel_name, channel_entitlements, channel_logo, channel_url, channel_license_url)
     channel_list.append(channel)
+
+    time.sleep(5)
+
+
+def saveChannelsToFile():
+    with open("allchannels.txt", "w") as channel_list_file:
+        channel_list_file.write("{0:10}  {1:14}   {3}\n".format("Channel Name", "Channel Streamable Url", "Channel License Url"))
+        for channel in channel_list:
+            channel_list_file.write("{0:10}  {1:14}   {3}\n".format(channel.name, channel.url, channel.license_url))
+
 
 
 if __name__ == '__main__':
