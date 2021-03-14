@@ -1,6 +1,6 @@
 ### Script to get all channels from tata sky
 import threading
-from constants import API_BASE_URL, API_BASE_URL_2
+from TSPrivateAPI.code_samples.constants import API_BASE_URL, API_BASE_URL_2
 import requests
 import json as json
 
@@ -13,6 +13,7 @@ def getChannelInfo(channelId):
     channel_meta = x.json()['data']['meta'][0]
     channel_detail_dict = x.json()['data']['detail']
     onechannl = {
+        "channel_id": str(channelId),
         "channel_name": channel_meta['channelName'],
         "channel_license_url": channel_detail_dict['dashWidewineLicenseUrl'],
         "channel_url": channel_detail_dict['dashWidewinePlayUrl'],
@@ -28,8 +29,8 @@ def saveChannelsToFile():
         json.dump(channel_list,channel_list_file)
 
 def processChnuks(channel_lists):
-    for channel in channel_lists:
-        print("Getting channelId: {0}".format(channel['id']))
+    for index,channel in enumerate(channel_lists):
+        print("Getting Index: {0} channelId: {1}\n".format(index,channel['id']))
         channel_id = str(channel['id'])
         getChannelInfo(channel_id)
 

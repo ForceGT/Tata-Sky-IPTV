@@ -56,6 +56,7 @@ def loginWithPass(sid, rmn, pwd):
         responseMessage = x.json()['message']
         responseData = x.json()['data']
         if responseMessage == "Logged in successfully.":
+            print(responseMessage)
             user.update({
                 "accessToken": responseData['accessToken'],
                 "entitlements": responseData['userDetails']['entitlements'],
@@ -64,6 +65,7 @@ def loginWithPass(sid, rmn, pwd):
                 "acStatus": responseData['userDetails']['acStatus'],
                 "profileId": responseData['userProfile']['id']
             })
+            saveUserDetailsToFile()
         else:
             print(responseMessage)
     else:
@@ -83,6 +85,7 @@ def loginWithOTP(sid, rmn, otp):
         responseMessage = x.json()['message']
         responseData = x.json()['data']
         if responseMessage == "Logged in successfully.":
+            print(responseMessage)
             user.update({
                 "accessToken": responseData['accessToken'],
                 "entitlements": responseData['userDetails']['entitlements'],
@@ -91,6 +94,7 @@ def loginWithOTP(sid, rmn, otp):
                 "acStatus": responseData['userDetails']['acStatus'],
                 "profileId": responseData['userProfile']['id']
             })
+            saveUserDetailsToFile()
         else:
             print(responseMessage)
     else:
