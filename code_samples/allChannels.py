@@ -1,26 +1,10 @@
 ### Script to get all channels from tata sky
-from TSPrivateAPI.code_samples.model.channel import Channel
+import threading
 from constants import API_BASE_URL, API_BASE_URL_2
 import requests
-import time
 import json as json
 
-channel_list = list()
-
-def getAllChannels():
-    url = API_BASE_URL + "content-detail/pub/api/v1/channels?limit=443"
-    x = requests.get(url)
-    channel_list = x.json()['data']['list']
-    print("Total Channels fetched:", len(channel_list))
-    print("Fetching channel info..........")
-    for index, channel in enumerate(channel_list):
-        print("Getting index: {0}, channelId: {1}".format(index, channel['id']))
-        channel_id = str(channel['id'])
-        getChannelInfo(channel_id)
-    print("Saving all to a file....")
-    saveChannelsToFile()
-
-
+channel_list = []
 
 
 def getChannelInfo(channelId):
@@ -28,24 +12,43 @@ def getChannelInfo(channelId):
     x = requests.get(url)
     channel_meta = x.json()['data']['meta'][0]
     channel_detail_dict = x.json()['data']['detail']
-    channel_name = channel_meta['channelName']
-    channel_license_url = channel_detail_dict['dashWidewineLicenseUrl']
-    channel_url = channel_detail_dict['dashWidewinePlayUrl']
-    channel_entitlements = channel_detail_dict['entitlements']
-    channel_logo = channel_meta['channelLogo']
-
-    channel = Channel(channel_name, channel_entitlements, channel_logo, channel_url, channel_license_url)
-    channel_list.append(channel)
-
-    time.sleep(5)
+    onechannl = {
+        "channel_name": channel_meta['channelName'],
+        "channel_license_url": channel_detail_dict['dashWidewineLicenseUrl'],
+        "channel_url": channel_detail_dict['dashWidewinePlayUrl'],
+        "channel_entitlements": channel_detail_dict['entitlements'],
+        "channel_logo": channel_meta['channelLogo'],
+    }
+    channel_list.append(onechannl)
 
 
 def saveChannelsToFile():
-    with open("allchannels.txt", "w") as channel_list_file:
-        channel_list_file.write("{0:10}  {1:14}   {3}\n".format("Channel Name", "Channel Streamable Url", "Channel License Url"))
-        for channel in channel_list:
-            channel_list_file.write("{0:10}  {1:14}   {3}\n".format(channel.name, channel.url, channel.license_url))
+    print(len(channel_list))
+    with open("allchannels.json", "w") as channel_list_file:
+        json.dump(channel_list,channel_list_file)
 
+def processChnuks(channel_lists):
+    for channel in channel_lists:
+        print("Getting channelId: {0}".format(channel['id']))
+        channel_id = str(channel['id'])
+        getChannelInfo(channel_id)
+
+
+def getAllChannels():
+    ts = []
+    url = API_BASE_URL + "content-detail/pub/api/v1/channels?limit=443"
+    x = requests.get(url)
+    channel_list = x.json()['data']['list']
+    print("Total Channels fetched:", len(channel_list))
+    print("Fetching channel info..........")
+    for i in range(0, len(channel_list), 5):
+        t = threading.Thread(target=processChnuks, args=([channel_list[i:i + 5]]))
+        ts.append(t)
+        t.start()
+    for t in ts:
+        t.join()
+    print("Saving all to a file.... " + str(len(channel_list)))
+    saveChannelsToFile()
 
 
 if __name__ == '__main__':
