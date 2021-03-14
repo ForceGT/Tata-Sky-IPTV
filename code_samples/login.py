@@ -48,6 +48,7 @@ def generateOTP(sid, rmn):
 
 
 def loginWithPass(sid, rmn, pwd):
+    # For login but sid and rmn must be present
     payload = getPayload(auth=pwd, sid=sid, loginOpt="PWD", rmn=rmn)
     headers = getHeaders()
     x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -70,6 +71,7 @@ def loginWithPass(sid, rmn, pwd):
 
 
 def loginWithOTP(sid, rmn, otp):
+    # For login both sid and rmn must be present
     if sid == "":
         sid = lookupSid(rmn)
     if rmn == "":
