@@ -1,6 +1,6 @@
-# Tata Sky API
+# Tata Sky IPTV Script generator
 
-A collection of some scripts to show how the Tata Sky API works basically to show how streaming and DASH/HLS work 
+A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) based on the channels that the user has subscribed on the Tata Sky portal. You just have to login that's it
 
 ## Login 
 The figure shows how the API authenticates any user 
