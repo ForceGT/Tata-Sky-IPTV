@@ -26,11 +26,12 @@ def getChannelInfo(channelId):
 def saveChannelsToFile():
     print(len(channel_list))
     with open("allchannels.json", "w") as channel_list_file:
-        json.dump(channel_list,channel_list_file)
+        json.dump(channel_list, channel_list_file)
+
 
 def processChnuks(channel_lists):
-    for index,channel in enumerate(channel_lists):
-        print("Getting Index: {0} channelId: {1}\n".format(index,channel['id']))
+    for channel in channel_lists:
+        print("Getting channelId:" ,channel['id'])
         channel_id = str(channel['id'])
         getChannelInfo(channel_id)
 

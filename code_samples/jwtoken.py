@@ -1,4 +1,4 @@
-from TSPrivateAPI.code_samples.constants import API_BASE_URL
+from constants import API_BASE_URL
 import requests
 import json
 
@@ -24,13 +24,18 @@ def generateJWT(channelId):
     if x.status_code == 200:
         msg = x.json()['message']
         if msg == 'OAuth Token Generated Successfully':
-            print(msg)
-            print("Token:", x.json()['data']['token'])
+            print(msg + " for channelId:" + str(channelId))
+
+            token = x.json()['data']['token']
+            print("Token:", token)
+            return token
         else:
             print(msg)
+            return ""
     else:
-        print("Response:",x.text)
-        print("Could not generate JWT for channelId:",channelId)
+        print("Response:", x.text)
+        print("Could not generate JWT for channelId:", channelId)
+        return ""
 
 
 def getPayloadForJWT(channelId):
@@ -49,6 +54,9 @@ def getUserChannelSubscribedList():
         for userEntitlement in entitlements:
             if userEntitlement in channel['channel_entitlements']:
                 included.append(channel)
+    with open('userSubscribedChannels.json', 'w') as userSubChannelFile:
+        json.dump(included, userSubChannelFile)
+
     return included
 
 
@@ -63,6 +71,7 @@ def getEpidList(channelId):
     entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
     for entitlement in entitlements:
         if entitlement in selectedChannel['channel_entitlements']:
+            print("Entitlement found:", entitlement)
             epidList.append({
                 "epid": "Subscription",
                 "bid": entitlement
@@ -89,3 +98,7 @@ def getHeaders():
         'User-Agent': 'PostmanRuntime/7.26.10'
     }
     return headers
+
+
+if __name__ == '__main__':
+    generateJWT(78)
