@@ -1,4 +1,5 @@
 import login
+import utils
 
 while True :
     print("Welcome To TataSky Channel Generation Script")
@@ -41,6 +42,8 @@ while True :
         else:
             print("Wrong input entered...Exiting")
             exit(1)
+    elif ch == 3:
+        utils.m3ugen()
     else:
         print("Wrong input entered ... Exiting")
         exit(1)

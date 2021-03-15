@@ -3,18 +3,23 @@ import requests
 import json
 
 
+# This method gets the userDetails from the userDetails file and returns it as a dictionary
 def getUserDetails():
     with open("userDetails.json", "r") as userDetailFile:
         userDetails = json.load(userDetailFile)
     return userDetails
 
 
+# This method gets the channelList from the allChannels.json file and returns it as a list/dictionary
 def getChannelList():
     with open('allChannels.json', 'r') as allChannelsFile:
         channelList = json.load(allChannelsFile)
     return channelList
 
 
+# This method will generate a jwt based on the supplied channelId
+# It involves sending a post request to a specific endpoint with some headers and params
+# The token expires in a day
 def generateJWT(channelId):
     url = API_BASE_URL + "auth-service/v1/oauth/token-service/token"
     payload = json.dumps(getPayloadForJWT(channelId))
@@ -25,7 +30,6 @@ def generateJWT(channelId):
         msg = x.json()['message']
         if msg == 'OAuth Token Generated Successfully':
             print(msg + " for channelId:" + str(channelId))
-
             token = x.json()['data']['token']
             print("Token:", token)
             return token
@@ -38,6 +42,8 @@ def generateJWT(channelId):
         return ""
 
 
+# This method will get the payload needed for the jwt generation
+# Involves sending the episode ids
 def getPayloadForJWT(channelId):
     return {
         "action": "stream",
@@ -45,11 +51,15 @@ def getPayloadForJWT(channelId):
     }
 
 
+# This method returns and also saves all the subscribed channels based on the users choices in the tatasky portal It
+# checks the user entitlements in all the channel entitlements and keeps the channel if a specific user entitlement
+# has been found
 def getUserChannelSubscribedList():
     included = []
     userDetails = getUserDetails()
-    entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
-    channelList = getChannelList()
+    entitlements = [entitlement['pkgId'] for entitlement in
+                    userDetails["entitlements"]]  # all the user entitlements saved in userDetails.json
+    channelList = getChannelList()  # All the channels saved in allChannels.json
     for channel in channelList:
         for userEntitlement in entitlements:
             if userEntitlement in channel['channel_entitlements']:
@@ -59,6 +69,9 @@ def getUserChannelSubscribedList():
 
     return included
 
+
+# This method gets the needed epid or the entitlement/episode id
+# This is included in the payload to get the jwt
 
 def getEpidList(channelId):
     epidList = []
@@ -71,7 +84,6 @@ def getEpidList(channelId):
     entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
     for entitlement in entitlements:
         if entitlement in selectedChannel['channel_entitlements']:
-            print("Entitlement found:", entitlement)
             epidList.append({
                 "epid": "Subscription",
                 "bid": entitlement
