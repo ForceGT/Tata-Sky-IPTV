@@ -34,23 +34,31 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 # How to use
 
 + Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI```
-
-+ Simply run main.py using the following code
++ Change to the ```code_samples``` directory by using  ```cd code_samples```
++ Get all the needed requirements for the script from the ```requirements.txt``` file using ```pip install -r requirements.txt```
++ Simply run ```main.py``` (the main script) using the following code
 ```python
   python main.py
 ```
 + You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again
 
-+ You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file
++ You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file in the current directory
 **NOTE: Please run this only after logging in otherwise the script exits with an error**
 
 + The generated m3u file may have to be updated time to time. If it fails to get jwt for a specific channelId then you must do it manually. Note down the channelId and then use the ```jwttoken.py``` to generate token for that file and manually edit the m3u file using any text editor
+**How to edit**: The Token you obtain after running the ```jwttoken.py``` file will be printed in the console.Copy this token and open the m3u file and edit the value ```inputstream.adapative.license_url=https://tatasky.irdetto.*****``` and append to it ```ls_session```.If your url is ```https://tatasky.****``` then after appending the ```ls_session```, it should now be ```https://tatasky.irdetto.com/****ContentId=4999999&ls_session=Your_Token_Here```
+
+
+**NOTE:** The playlist has to be updated every day because the jwttoken expires in a day, the script will try to find a workaround to this as soon as possible
 
 
 # Playing in Android TV
 
 + You can use Kodi with the PVR Simple IPTV Plugin. The generated m3u file already is in the standard format that can be read by the plugin
 + You can use Tivimate app to play the m3u playlist too
+
+# Playing in Android 
++ You can use Kodi to play the m3u file 
 
 # Playing in a browser (tried with Chrome)
 
