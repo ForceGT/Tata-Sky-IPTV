@@ -33,7 +33,7 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 
 # TODO
 
-- [ ] Add Support for Kodi 19.0 ( See [#1](#1) for more info)
+- [ ] Add Support for Kodi 19.0 ( See [#1](https://github.com/ForceGT/TSPrivateAPI/issues/2) for more info)
 - [ ] Figure out easy way to solve the issue of playlist need to be updated daily
 
 # How to use
