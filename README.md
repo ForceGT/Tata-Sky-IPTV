@@ -31,6 +31,11 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 <hr>
 <hr>
 
+# TODO
+
+- [ ] Add Support for Kodi 19.0 ( See [#1](#1) for more info)
+- [ ] Figure out easy way to solve the issue of playlist need to be updated daily
+
 # How to use
 
 + Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI```
@@ -54,7 +59,7 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 
 # Playing in Android TV
 
-+ You can use Kodi with the PVR Simple IPTV Plugin. The generated m3u file already is in the standard format that can be read by the plugin
++ You can use Kodi with the PVR Simple IPTV Plugin [doesn't work yet]. The generated m3u file already is in the standard format that can be read by the plugin
 + You can use Tivimate app to play the m3u playlist too
 
 # Playing in Android 
@@ -66,3 +71,4 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 + To play a single file open the generated m3u file, and look for the channel you want to play. Get the channel url (ends with ```.mpd```) and paste it in the browser
 + The extension automatically asks for the license url. You should then look for the license url. The license url is the value of the key ```#KODIPROP:inputstream.adaptive.license_key=``` paramater. Copy the entire url and paste it in the browser
 **NOTE:** The ls_session should be copied carefully otherwise the license is not granted
+
