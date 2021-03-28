@@ -1,6 +1,6 @@
 ### Script to get all channels from tata sky
 import threading
-from TSPrivateAPI.code_samples.constants import API_BASE_URL, API_BASE_URL_2
+API_BASE_URL = "https://kong-tatasky.videoready.tv/"
 import requests
 import json as json
 
