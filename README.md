@@ -45,30 +45,46 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 ```python
   python main.py
 ```
-+ You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again
++ You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again. If you delete the ```userDetails.json``` file you will have to login again so please be careful 
 
 + You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file in the current directory
-**NOTE: Please run this only after logging in otherwise the script exits with an error**
-
-+ The generated m3u file may have to be updated time to time. If it fails to get jwt for a specific channelId then you must do it manually. Note down the channelId and then use the ```jwttoken.py``` to generate token for that file and manually edit the m3u file using any text editor
-**How to edit**: The Token you obtain after running the ```jwttoken.py``` file will be printed in the console.Copy this token and open the m3u file and edit the value ```inputstream.adapative.license_url=https://tatasky.irdetto.*****``` and append to it ```ls_session```.If your url is ```https://tatasky.****``` then after appending the ```ls_session```, it should now be ```https://tatasky.irdetto.com/****ContentId=4999999&ls_session=Your_Token_Here```
-
-
-**NOTE:** The playlist has to be updated every day because the jwttoken expires in a day, the script will try to find a workaround to this as soon as possible
+**NOTE: Please run this only after logging in using Step 1 or 2 otherwise the script exits with an error**
 
 
 # Playing in Android TV
 
-+ You can use Kodi with the PVR Simple IPTV Plugin [doesn't work yet]. The generated m3u file already is in the standard format that can be read by the plugin
++ You can use Kodi with the PVR Simple IPTV Plugin [doesn't work yet]. The generated m3u file already is in the standard format that can be read by the plugin (WIP)
 + You can use Tivimate app to play the m3u playlist too
 
 # Playing in Android 
-+ You can use Kodi to play the m3u file 
++ You can use Kodi to play the m3u file(WIP)
++ You can play individual channel using [Exostreamer](https://play.google.com/store/apps/details?id=com.mtdeer.exostreamr) 
+Playing individual link :
+Just open the m3u file generated above in any text editor of your choice and search for your channel. Once you found it, get the channel url(the one that ends with `.mpd` and starts with `http`) and your license url(The license url is the value of the key ```#KODIPROP:inputstream.adaptive.license_key=``` paramater)
+Paste the channelurl(mentioned above) in the text field and click on the `DRM` button to enter your license url and then click on play. The app automatically remembers this next time if you use it
 
 # Playing in a browser (tried with Chrome)
 
 + I personally use [Native MPEG-Dash + HLS Playback](https://chrome.google.com/webstore/detail/native-mpeg-dash-%20-hls-pl/cjfbmleiaobegagekpmlhmaadepdeedn) which doesn't suppport playlists yet
-+ To play a single file open the generated m3u file, and look for the channel you want to play. Get the channel url (ends with ```.mpd```) and paste it in the browser
+
+To play a single link/ particular channel
++ Open the generated m3u file, and look for the channel you want to play. Get the channel url (ends with ```.mpd```) and paste it in the browser
 + The extension automatically asks for the license url. You should then look for the license url. The license url is the value of the key ```#KODIPROP:inputstream.adaptive.license_key=``` paramater. Copy the entire url and paste it in the browser
 **NOTE:** The ls_session should be copied carefully otherwise the license is not granted
+
+
+# Good points to know
+
++ The generated m3u file **has to be updated daily**.If you generated it at 11:00pm today it will expire by 11:00pm tomorrow.**You don't need to relogin**, just generate the playlist again using command number 3 in the script.
+
++   If it fails to get jwt for a specific channelId then you must do it manually. Note down the channelId and then use the ```jwttoken.py``` to generate token for that file and manually edit the m3u file using any text editor
+**How to edit**: 
+First run the ```jwttoken.py``` python file using ```python jwttoken.py```
+Enter the channelId for which you need a token
+The Token you obtain after running the `above file will be printed in the console.
+Copy this token and open the m3u file and edit the value ```inputstream.adapative.license_url=https://tatasky.irdetto.*****``` and append to it ```ls_session```.If your url is ```https://tatasky.****``` then after appending the ```ls_session```, it should now be ```https://tatasky.irdetto.com/****ContentId=4999999&ls_session=Your_Token_Here```
+
++ You don't need to have a Tata Sky dish, you just need to have a working subscriber id / registered no and/or otp/password (Total 4 ways of logging in using the script) and **you should have the channel you want to watch subscribed** for the above script to work
++ You need to have basic python knowledge for this
+
 
