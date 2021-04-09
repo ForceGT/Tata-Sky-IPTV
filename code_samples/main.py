@@ -8,7 +8,8 @@ while True :
     print("Menu:")
     print("1. Login using SID")
     print("2. Login using RMN")
-    print("3. Generate my playlist")
+    print("3. Generate my playlist (Don't use without loggin in first")
+    print("I am a noobie scripter but I hope I made your day xD")
     ch = int(input("Enter your choice:"))
     print(ch)
     if ch == 1:
