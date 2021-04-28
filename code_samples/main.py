@@ -9,6 +9,7 @@ while True :
     print("1. Login using SID")
     print("2. Login using RMN")
     print("3. Generate my playlist (Don't use without loggin in first")
+    print("4. Exit")
     print("I am a noobie scripter but I hope I made your day xD")
     ch = int(input("Enter your choice:"))
     print(ch)
@@ -45,6 +46,8 @@ while True :
             exit(1)
     elif ch == 3:
         utils.m3ugen()
+    elif ch == 4:
+        exit()
     else:
         print("Wrong input entered ... Exiting")
         exit(1)
