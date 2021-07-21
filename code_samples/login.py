@@ -14,41 +14,23 @@ user = {}
 
 
 def generateOTP(sid, rmn):
-    if sid == "":
-        print("Generating OTP with Registered Mobile Number...", rmn)
-        otp_with_rmn_url = API_BASE_URL + "rest-api/pub/api/v1/rmn/" + rmn + "/otp"
-        x = requests.get(otp_with_rmn_url)
-        if x.status_code == 200:
-            msg = x.json()['message']
-            if msg == 'OTP generated successfully.':
-                print("OTP Generated successfully")
-            else:
-                print(msg)
-
+    print("Generating OTP.......")
+    print("\n \n \n")
+    otp_with_rmn_url = API_BASE_URL + "rest-api/pub/api/v1/rmn/" + rmn + "/otp"
+    x = requests.get(otp_with_rmn_url)
+    if x.status_code == 200:
+        msg = x.json()['message']
+        if msg == 'OTP generated successfully.':
+            print("OTP Generated successfully")
         else:
-            print("Failed to generate OTP")
+            print(msg)
 
     else:
-        print("Generating OTP with Subscriber ID..", sid)
-        otp_with_sid_url = API_BASE_URL + "rest-api/pub/api/v1/subscribers/" + sid + "/otp"
-        x = requests.get(otp_with_sid_url)
-
-        if x.status_code == 200:
-            msg = x.json()['message']
-            if msg == 'OTP generated successfully.':
-                fallback_rmn = str(x.json()['data']['rmn'])
-                print("Rmn:", fallback_rmn)
-                print("OTP Generated successfully")
-            else:
-                print(msg)
-
-        else:
-            print("Failed to generate OTP")
-            return False
+        print("Failed to generate OTP")
+        return False
 
 
 def loginWithPass(sid, rmn, pwd):
-    # For login but sid and rmn must be present
     payload = getPayload(auth=pwd, sid=sid, loginOpt="PWD", rmn=rmn)
     headers = getHeaders()
     x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -73,11 +55,6 @@ def loginWithPass(sid, rmn, pwd):
 
 
 def loginWithOTP(sid, rmn, otp):
-    # For login both sid and rmn must be present
-    if sid == "":
-        sid = lookupSid(rmn)
-    if rmn == "":
-        rmn = fallback_rmn
     payload = getPayload(auth=otp, sid=sid, loginOpt="OTP", rmn=rmn)
     headers = getHeaders()
     x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
@@ -132,6 +109,7 @@ def saveUserDetailsToFile():
         json.dump(user, userDetailsFile)
 
 
+# This method looks up Subscriber ID from registered mobile number
 def lookupSid(rmn):
     url = API_BASE_URL + "rest-api/pub/api/v1/subscriberLookup" + "?rmn=" + rmn
 

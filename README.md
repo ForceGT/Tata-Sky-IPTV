@@ -1,17 +1,24 @@
 # Tata Sky IPTV Script generator
 
-A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) based on the channels that the user has subscribed on the Tata Sky portal. You just have to login that's it
+A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) based on the channels that the user has subscribed on the Tata Sky portal. You just have to login using your password or otp that's it
 
+# Requirements
 
-Caution: If you've never done any kind of programming before or have never worked with Python before, it may seem difficult but follow the `How to Use` section
-
++ A working brain
++ Knowledge of basic python
++ A working Tata Sky account
++ Channels that you want to watch, already subscribed (I'm sorry, no freebies)
 
 # How to use
 
-+ 
-+ Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI```
+### Setting up your environment
+
++ Make sure you have [python](https://www.python.org/downloads/) up and running on your system. **If you don't know how to do this then well, don't think of proceeding further**
++ You need `requests` to be installed. Do that by using ``pip install requests``
+    
+
++ Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI``` or download the `zip` file and then go inside the `code_samples` directory and open your terminal there
 + Change to the ```code_samples``` directory by using  ```cd code_samples```
-+ Get all the needed requirements for the script from the ```requirements.txt``` file using ```pip install -r requirements.txt```
 + Simply run ```main.py``` (the main script) using the following code
 ```python
   python main.py

@@ -1,24 +1,25 @@
 ### Script to get all channels from tata sky
 import threading
-API_BASE_URL = "https://kong-tatasky.videoready.tv/"
 import requests
 import json as json
+
+API_BASE_URL = "https://kong-tatasky.videoready.tv/"
 
 channel_list = []
 
 
 def getChannelInfo(channelId):
-    url = "{}content-detail/pub/api/v1/channels/{}".format(API_BASE_URL,channelId)
+    url = "{}content-detail/pub/api/v1/channels/{}".format(API_BASE_URL, channelId)
     x = requests.get(url)
     channel_meta = x.json()['data']['meta'][0]
     channel_detail_dict = x.json()['data']['detail']
     onechannl = {
         "channel_id": str(channelId),
-        "channel_name": channel_meta.get('channelName',''),
-        "channel_license_url": channel_detail_dict.get('dashWidewineLicenseUrl',''),
-        "channel_url": channel_detail_dict.get('dashWidewinePlayUrl',''),
-        "channel_entitlements": channel_detail_dict.get('entitlements',''),
-        "channel_logo": channel_meta.get('channelLogo','')
+        "channel_name": channel_meta.get('channelName', ''),
+        "channel_license_url": channel_detail_dict.get('dashWidewineLicenseUrl', ''),
+        "channel_url": channel_detail_dict.get('dashWidewinePlayUrl', ''),
+        "channel_entitlements": channel_detail_dict.get('entitlements', ''),
+        "channel_logo": channel_meta.get('channelLogo', '')
     }
     channel_list.append(onechannl)
 
@@ -32,7 +33,7 @@ def saveChannelsToFile():
 
 def processChnuks(channel_lists):
     for channel in channel_lists:
-        print("Getting channelId:{}".format(channel.get('id','')))
+        print("Getting channelId:{}".format(channel.get('id', '')))
         channel_id = str(channel.get('id', ''))
         getChannelInfo(channel_id)
 
