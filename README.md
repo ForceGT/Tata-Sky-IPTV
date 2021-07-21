@@ -16,7 +16,7 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 + Make sure you have [python](https://www.python.org/downloads/) up and running on your system. **If you don't know how to do this then well, don't think of proceeding further**
 + You need `requests` to be installed. Do that by using ``pip install requests``
     
-
+## Running the scripts
 + Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI``` or download the `zip` file and then go inside the `code_samples` directory and open your terminal there
 + Change to the ```code_samples``` directory by using  ```cd code_samples```
 + Simply run ```main.py``` (the main script) using the following code
