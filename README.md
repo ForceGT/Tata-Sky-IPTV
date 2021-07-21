@@ -2,14 +2,33 @@
 
 A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) based on the channels that the user has subscribed on the Tata Sky portal. You just have to login that's it
 
-## Login 
-The figure shows how the API authenticates any user 
 
-**Using OTP** 
+Caution: If you've never done any kind of programming before or have never worked with Python before, it may seem difficult but follow the `How to Use` section
+
+
+# How to use
+
++ 
++ Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI```
++ Change to the ```code_samples``` directory by using  ```cd code_samples```
++ Get all the needed requirements for the script from the ```requirements.txt``` file using ```pip install -r requirements.txt```
++ Simply run ```main.py``` (the main script) using the following code
+```python
+  python main.py
+```
++ You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again. If you delete the ```userDetails.json``` file you will have to login again so please be careful 
+
++ You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file in the current directory.**NOTE: Please run this only after logging in using Step 1 or 2 otherwise the script exits with an error**
+
++ You need to login just once usually, it will create a `userDetails.json` file once you login, and then you can just regenerate the playlist each day when you would like to use it. If you don't see the `userDetails.json` file anywhere, then you may have to login again
+
+# How it works
 
 ![](images/tsky.png)
 
-Password mechanism also works kinda similar
+
+## Login 
+The figure shows how the API authenticates any user.Password mechanism also works kinda similar
 
 ### Explanation of different files used in the code_samples directory
 
@@ -36,20 +55,7 @@ The script calls this repeatedly for all channels in the user subscribed/entitle
 - [ ] Add Support for Kodi 19.0 ( See [#1](https://github.com/ForceGT/TSPrivateAPI/issues/2) for more info)
 - [ ] Figure out easy way to solve the issue of playlist need to be updated daily
 
-# How to use
 
-+ Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI```
-+ Change to the ```code_samples``` directory by using  ```cd code_samples```
-+ Get all the needed requirements for the script from the ```requirements.txt``` file using ```pip install -r requirements.txt```
-+ Simply run ```main.py``` (the main script) using the following code
-```python
-  python main.py
-```
-+ You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again. If you delete the ```userDetails.json``` file you will have to login again so please be careful 
-
-+ You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file in the current directory.**NOTE: Please run this only after logging in using Step 1 or 2 otherwise the script exits with an error**
-
-+ You need to login just once usually, it will create a `userDetails.json` file once you login, and then you can just regenerate the playlist each day when you would like to use it. If you don't see the `userDetails.json` file anywhere, then you may have to login again
 
 
 
