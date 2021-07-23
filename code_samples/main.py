@@ -1,7 +1,6 @@
 import login
 import utils
-
-logged_in = False
+import jwtoken as jwt
 
 while True:
     print("Welcome To TataSky Channel Generation Script")
@@ -22,16 +21,15 @@ while True:
     print("4. Exit")
     print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)")
     ch = int(input("Enter your choice:"))
-    print(ch)
+    logged_in = jwt.getUserDetails()["loggedIn"]
+
     if ch == 1:
-        logged_in = True
         rmn = str(input("Enter your Registered Mobile Number without the country code: "))
         sid = str(input("Enter your Subscriber Id: "))
         pwd = str(input("Enter your password: "))
         print("Trying to Login with password ............")
         login.loginWithPass(sid=sid, rmn=rmn, pwd=pwd)
     elif ch == 2:
-        logged_in = True
         rmn = str(input("Enter your Registered Mobile No without the Country Code: "))
         sid = str(input("Enter your Subscriber Id: "))
         login.generateOTP(sid=sid, rmn=rmn)
@@ -39,7 +37,7 @@ while True:
         print("Trying to Login with OTP ................")
         login.loginWithOTP(sid=sid, rmn=rmn, otp=otp)
     elif ch == 3:
-        if logged_in:
+        if logged_in == "true":
             utils.m3ugen()
         else:
             print("Please login with options 1 or 2 before generating playlist")

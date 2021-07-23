@@ -45,7 +45,8 @@ def loginWithPass(sid, rmn, pwd):
                 "sid": responseData['userDetails']['sid'],
                 "sName": responseData['userDetails']['sName'],
                 "acStatus": responseData['userDetails']['acStatus'],
-                "profileId": responseData['userProfile']['id']
+                "profileId": responseData['userProfile']['id'],
+                "loggedIn":"true"
             })
             saveUserDetailsToFile()
         else:
@@ -69,7 +70,8 @@ def loginWithOTP(sid, rmn, otp):
                 "sid": responseData['userDetails']['sid'],
                 "sName": responseData['userDetails']['sName'],
                 "acStatus": responseData['userDetails']['acStatus'],
-                "profileId": responseData['userProfile']['id']
+                "profileId": responseData['userProfile']['id'],
+                "loggedIn": "true"
             })
             saveUserDetailsToFile()
         else:
