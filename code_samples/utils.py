@@ -37,7 +37,7 @@ def m3ugen():
         t.join()
 
     print("================================================================")
-    print("Found total {0} channels subscribed by user \n Saving them to m3u file".format(len(channelList)))
+    print("Found total {0} channels subscribed by user \nSaving them to m3u file".format(len(channelList)))
     print("================================================================")
     saveM3ustringtofile(m3ustr)
 
@@ -53,7 +53,7 @@ def getPrintNote():
         "- Using this script you can generate playable links based on the channels you have subscribed to \n" + \
         "- You can always read the README.md file if you don't know how to use the generated file \n" + \
         "- You can login using your password or generate an OTP. You need to enter both the Registered Mobile Number \n" + \
-        "\n Caution: This doesn't promote any kind of hacking or compromising anyone's details \n "
+        "\n Caution: This doesn't promote any kind of hacking or compromising anyone's details"
 
     return s
 

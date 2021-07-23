@@ -11,14 +11,14 @@ while True:
         logged_in = userDetails["loggedIn"]
 
     s = utils.getPrintNote()
-    print(s if logged_in is not "true" else "")
-    print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)" if logged_in is not "true" else "")
+    print(s if logged_in != "true" else "")
+    print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)" if logged_in != "true" else "")
     print("====================================")
     print(" Login Status: " + logged_in)
     print("====================================")
     print("Menu:")
-    print("1. Login using Password" if logged_in is not "true" else "1. Login Again Using Password")
-    print("2. Login using OTP" if logged_in is not "true" else "2. Login Again Using OTP")
+    print("1. Login using Password" if logged_in != "true" else "1. Login Again Using Password")
+    print("2. Login using OTP" if logged_in != "true" else "2. Login Again Using OTP")
     print("3. Generate my playlist ")
     print("4. Exit")
     print("*************************************************************")

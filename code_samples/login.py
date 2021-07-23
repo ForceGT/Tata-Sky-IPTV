@@ -39,7 +39,7 @@ def loginWithPass(sid, rmn, pwd):
         responseData = x.json()['data']
         if responseMessage == "Logged in successfully.":
             print(responseMessage)
-            print("\n \n \n \n")
+            print("\n")
             print("**********************************************")
             print("Saving user details to userDetails.json so that you don't have to login again")
 
@@ -69,7 +69,7 @@ def loginWithOTP(sid, rmn, otp):
         if responseMessage == "Logged in successfully.":
             print("**********************************************")
             print(responseMessage)
-            print("\n \n \n \n")
+            print("\n")
             print("**********************************************")
             print("Saving user details to userDetails.json so that you don't have to login again")
             user.update({

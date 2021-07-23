@@ -31,9 +31,13 @@ def generateJWT(channelId, iterative=True):
         if msg == 'OAuth Token Generated Successfully':
             # doesn't print the msg in iterative state
             s = msg + " for channelId: " + str(channelId)
-            print(s if iterative else "")
+            if iterative:
+                print(s)
+
             token = x.json()['data']['token']
-            print("Token:", token) if not iterative else None
+            tokenMsg = "Token:" + token
+            if iterative:
+                print(tokenMsg)
             return token
         else:
             print(msg)
