@@ -21,7 +21,8 @@ while True:
     print("4. Exit")
     print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)")
     ch = int(input("Enter your choice:"))
-    logged_in = jwt.getUserDetails()["loggedIn"]
+    userDetails = jwt.getUserDetails()
+    logged_in = userDetails["loggedIn"]
 
     if ch == 1:
         rmn = str(input("Enter your Registered Mobile Number without the country code: "))
