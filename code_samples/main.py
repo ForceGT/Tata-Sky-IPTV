@@ -3,46 +3,57 @@ import utils
 import jwtoken as jwt
 
 while True:
-    print("Welcome To TataSky Channel Generation Script")
-    print("#############################################")
-    print("Using this script you can generate playable links based on the channels you have subscribed to \n This can "
-          "also generate a m3u playlist based on your choice selection. You can always read the README.md file if you "
-          "don't know how to use the generated file")
-    print("You can login using your password or generate an OTP. You need to enter both the Registered Mobile Number("
-          "rmn) "
-          "as well as the Subscriber ID(sid) for using the script. Please go and get both before proceeding further")
+    try:
+        userDetails = jwt.getUserDetails()
+    except FileNotFoundError:
+        logged_in = "false"
+    else:
+        logged_in = userDetails["loggedIn"]
 
-    print("\n \n \n Caution: This doesn't promote any kind of hacking or compromising anyone's details. You use it at "
-          "your own risk ")
+    s = utils.getPrintNote()
+    print(s if logged_in is not "true" else "")
+    print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)" if logged_in is not "true" else "")
+    print("====================================")
+    print(" Login Status: " + logged_in)
+    print("====================================")
     print("Menu:")
-    print("1. Login using Password")
-    print("2. Login using OTP")
+    print("1. Login using Password" if logged_in is not "true" else "1. Login Again Using Password")
+    print("2. Login using OTP" if logged_in is not "true" else "2. Login Again Using OTP")
     print("3. Generate my playlist ")
     print("4. Exit")
-    print("Credits: Gaurav Thakkar (My Github is: https://github.com/ForceGT)")
+    print("*************************************************************")
+    print("\n")
     ch = int(input("Enter your choice:"))
-    userDetails = jwt.getUserDetails()
-    logged_in = userDetails["loggedIn"]
 
     if ch == 1:
         rmn = str(input("Enter your Registered Mobile Number without the country code: "))
         sid = str(input("Enter your Subscriber Id: "))
         pwd = str(input("Enter your password: "))
         print("Trying to Login with password ............")
+        print("\n \n")
+        print("*************************************")
         login.loginWithPass(sid=sid, rmn=rmn, pwd=pwd)
     elif ch == 2:
         rmn = str(input("Enter your Registered Mobile No without the Country Code: "))
         sid = str(input("Enter your Subscriber Id: "))
         login.generateOTP(sid=sid, rmn=rmn)
         otp = str(input("Enter the OTP sent to your rmn: "))
+        print("\n \n")
+        print("*************************************")
         print("Trying to Login with OTP ................")
         login.loginWithOTP(sid=sid, rmn=rmn, otp=otp)
     elif ch == 3:
         if logged_in == "true":
+            print("***********************")
+            print("Please wait till the playlist is generated...")
+            print("You may see a lot of lines being printed, you may ignore it")
+            print("The generated m3u will be saved as allChannelPlaylist.m3u under the code_samples directory")
+            print("************************************")
             utils.m3ugen()
         else:
             print("Please login with options 1 or 2 before generating playlist")
     elif ch == 4:
+        print("Bye Bye.. See you soon!")
         exit()
     else:
         print("Wrong input entered ... Exiting")
