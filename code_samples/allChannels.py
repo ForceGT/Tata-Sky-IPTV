@@ -26,7 +26,7 @@ def getChannelInfo(channelId):
 
 def saveChannelsToFile():
     print(len(channel_list))
-    with open("allchannels.json", "w") as channel_list_file:
+    with open("allChannels.json", "w") as channel_list_file:
         json.dump(channel_list, channel_list_file)
         channel_list_file.close()
 
