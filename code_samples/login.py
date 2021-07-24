@@ -99,10 +99,9 @@ def getPayload(auth, sid, loginOpt, rmn):
 
 def getHeaders():
     headers = {
-        'x-app-id': 'ott-app',
-        'x-app-key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImR2ci11aSIsImtleSI6IiJ9'
-                     '.XUQUYRo82fD_6yZ9ZEWcJkc0Os1IKbpzynLzSRtQJ-E',
-        'x-api-key': '9a8087f911b248c7945b926f254c833b',
+        HEADER_X_APP_ID: header_app_id,
+        HEADER_X_APP_KEY: header_app_key,
+        HEADER_X_API_KEY: header_api_key,
         'device_details': '{"app":"11.0","lo":"en_IN","os":"10",'
                           '"device_id":"YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA","ip":"","dn":"ONEPLUS A6003",'
                           '"device_type":"ANDROID","device_category":"open","manufacturer":"OnePlus","ma":"",'

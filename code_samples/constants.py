@@ -1,4 +1,3 @@
-
 API_BASE_URL = "https://kong-tatasky.videoready.tv/"
 API_BASE_URL_2 = "https://ts-api.videoready.tv/"
 HEADER_X_API_KEY = "x-api-key"
