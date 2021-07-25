@@ -8,3 +8,7 @@
 /httpRequests/
 
 .idea/
+
+userDetails.json
+userSubscribedChannels.json
+allChannelPlaylist.m3u

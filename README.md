@@ -15,28 +15,19 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 
 + Make sure you have [python](https://www.python.org/downloads/) up and running on your system. **If you don't know how to do this then well, don't think of proceeding further**
 + You need `requests` to be installed. Do that by using ``pip install requests``
-    
-## Running the scripts
+
+### Running the scripts
 + Clone this to your directory using ```git clone https://github.com/ForceGT/TSPrivateAPI``` or download the `zip` file and then go inside the `code_samples` directory and open your terminal there
 + Change to the ```code_samples``` directory by using  ```cd code_samples```
 + Simply run ```main.py``` (the main script) using the following code
 ```python
-  python main.py
+    python main.py
 ```
 + You will get options to login using the different methods, upon successful login a ```userDetails.json``` file is created which contains important details of the user. The ```accessToken``` has to be updated from time to time. To do so run the login logic again. If you delete the ```userDetails.json``` file you will have to login again so please be careful 
 
 + You can generate m3u file by selecting option 3. This generates ```allChannelPlaylist.m3u``` file in the current directory.**NOTE: Please run this only after logging in using Step 1 or 2 otherwise the script exits with an error**
 
 + You need to login just once usually, it will create a `userDetails.json` file once you login, and then you can just regenerate the playlist each day when you would like to use it. If you don't see the `userDetails.json` file anywhere, then you may have to login again
-
-
-
-# TODO
-
-- [ ] Add Support for Kodi 19.0 ( See [#1](https://github.com/ForceGT/TSPrivateAPI/issues/2) for more info)
-- [ ] Figure out easy way to solve the issue of playlist need to be updated daily
-
-
 
 
 
@@ -48,35 +39,32 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 # Playing in Android 
 + You can use Kodi to play the m3u file(WIP)
 + You can play individual channel using [Exostreamer](https://play.google.com/store/apps/details?id=com.mtdeer.exostreamr) 
-Playing individual link :
-Just open the m3u file generated above in any text editor of your choice and search for your channel. Once you found it, get the channel url(the one that ends with `.mpd` and starts with `http`) and your license url(The license url is the value of the key ```#KODIPROP:inputstream.adaptive.license_key=``` paramater)
-Paste the channelurl(mentioned above) in the text field and click on the `DRM` button to enter your license url and then click on play. The app automatically remembers this next time if you use it
+See the below section on `Getting hold of individual channels` to know how to get the link to play a specific channel as you cannot play the entire playlist
++ Paste the channel url first and then click on the DRM button to enter the license url and then click on play
 
 # Playing in a browser (tried with Chrome)
 
 + I personally use [Native MPEG-Dash + HLS Playback](https://chrome.google.com/webstore/detail/native-mpeg-dash-%20-hls-pl/cjfbmleiaobegagekpmlhmaadepdeedn) which doesn't suppport playlists yet
 
-To play a single link/ particular channel
-+ Open the generated m3u file, and look for the channel you want to play. Get the channel url (ends with ```.mpd```) and paste it in the browser
-+ The extension automatically asks for the license url. You should then look for the license url. The license url is the value of the key ```#KODIPROP:inputstream.adaptive.license_key=``` paramater. Copy the entire url and paste it in the browser
-**NOTE:** The ls_session should be copied carefully otherwise the license is not granted
+See the below section on `Getting hold of individual channels` to know how to get the link to play a specific channel as you cannot play the entire playlist
++  Get the channel url (ends with ```.mpd```) and paste it in the browser
++ The extension automatically asks for the license url. You should then input the  license url.
 
-
-
-
+  
 # Good points to know
 
-+ The generated m3u file **has to be updated daily**.If you generated it at 11:00pm today it will expire by 11:00pm tomorrow.**You don't need to relogin**, just generate the playlist again using command number 3 in the script.
++ You must have basic knowledge of how to run scripts using python
++ You **CANNOT** have the channels, which you have not subscribed in the generated playlist
++ The generated m3u file **has to be updated daily**.
+  If you generated it at 11:00pm today it will expire by 11:00pm tomorrow.
+  **You don't need to relogin**, just generate the playlist again using command number 3 in the script.
+  
 
-+   If it fails to get jwt for a specific channelId then you must do it manually. Note down the channelId and then use the ```jwttoken.py``` to generate token for that file and manually edit the m3u file using any text editor
-**How to edit**: 
-First run the ```jwttoken.py``` python file using ```python jwttoken.py```
-Enter the channelId for which you need a token
-The Token you obtain after running the `above file will be printed in the console.
-Copy this token and open the m3u file and edit the value ```inputstream.adapative.license_url=https://tatasky.irdetto.*****``` and append to it ```ls_session```.If your url is ```https://tatasky.****``` then after appending the ```ls_session```, it should now be ```https://tatasky.irdetto.com/****ContentId=4999999&ls_session=Your_Token_Here```
-
-+ You don't need to have a Tata Sky dish, you just need to have a working subscriber id / registered no and/or otp/password (Total 4 ways of logging in using the script) and **you should have the channel you want to watch subscribed** for the above script to work
-+ You need to have basic python knowledge for this
+# Getting hold of individual channels
+- Just open the m3u file generated above in any text editor of your choice and search for your channel using the search functionality of your editor
+- The channel url is the one that starts with `https`and ends with ```.mpd``` 
+- The license url following the `#KODIPROP:inputstream.adaptive.license_key=` field
+- The license url and the channel url are the only two fields needed to play the channel 
 
 
 # How it works (For the geeks only)
