@@ -11,7 +11,16 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 
 # How to use
 
-## Script
+# App (Easy)
+<hr>
+
+- You can simply use the android app in your mobile phone or TV, login and then generate an m3u
+- The app can be found [here](static/app.apk)
+- Note that you have to generate a new playlist before the exploit time, that is mentioned in the app, or just one day for simplicity
+
+
+## Script (Difficult)
+
 <hr>
 
 ### Setting up your environment
@@ -69,11 +78,7 @@ See the below section on `Getting hold of individual channels` to know how to ge
 - The license url following the `#KODIPROP:inputstream.adaptive.license_key=` field
 - The license url and the channel url are the only two fields needed to play the channel 
 
-## App
 
-- You can simply use the android app in your mobile phone or TV, login and then generate an m3u
-- The app can be found [here](static/app.apk)
-- Note that you have to generate a new playlist before the exploit time, that is mentioned in the app, or just one day for simplicity
 
 
 
