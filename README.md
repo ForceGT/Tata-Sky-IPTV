@@ -19,6 +19,8 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 - Note that you have to generate a new playlist before the exploit time, that is mentioned in the app, or just one day for simplicity
 - The app can smartly detect if you have a playlist already in the mentioned directory,(the location of the file can be found inside the app), and it overwrites the content if you generate it again and again
 - You can point Tivimate to the location mentioned in the app, and just update once whenever you want to watch the playlist, should work fine
+- **There may be issues navigating through the textfields in TV, Try with the left key to navigate down, works for me, will fix, when I have time**
+- Minimum Supported Version : Android 5.0
 
 
 ## Script (Difficult)
