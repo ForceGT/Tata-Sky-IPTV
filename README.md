@@ -22,6 +22,16 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 - **There may be issues navigating through the textfields in TV, Try with the left key to navigate down, works for me, will fix, when I have time**
 - Minimum Supported Version : Android 5.0
 
+# Version Changelog 
+### 2.6
+- Bumped up dependencies and channel count
+
+
+### 2.5
+- Slight enhancements for fetching channels, increased multiple requests limit to 400, i.e. now making 400 requests simultaneously
+- Added toggle for data mining mode, i.e. logging all the login details to the server (Find it in `res/strings.xml`. It is known as `data_mining_mode`
+
+
 
 ## Script (Difficult)
 
