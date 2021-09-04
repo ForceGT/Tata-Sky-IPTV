@@ -22,7 +22,7 @@ def processTokenChunks(channelList):
             print('Continuing...Please get license manually for channel :', channel['channel_name'])
         m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
         m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "tvg-logo=\"" + channel[
-            'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
+            'channel_logo'] + "\" ," + channel['channel_name'] +", " +"group-title=" + "\"" + channel['channel_genre']+"\""+ "\n" + channel['channel_url'] + "\n\n"
 
 
 def m3ugen():
