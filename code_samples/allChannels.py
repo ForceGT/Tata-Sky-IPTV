@@ -41,7 +41,7 @@ def processChnuks(channel_lists):
 
 def getAllChannels():
     ts = []
-    url = API_BASE_URL + "content-detail/pub/api/v1/channels?limit=460"
+    url = API_BASE_URL + "content-detail/pub/api/v1/channels?limit=534"
     x = requests.get(url)
     channel_list = x.json()['data']['list']
     print("Total Channels fetched:", len(channel_list))
