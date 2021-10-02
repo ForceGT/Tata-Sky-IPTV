@@ -93,7 +93,7 @@ See the below section on `Getting hold of individual channels` to know how to ge
 - The license url and the channel url are the only two fields needed to play the channel 
 
 
-
+Support and Discussion group : [Telegram](https://T.me/tskyiptv)
 
 
 # How it works (For the geeks only)
