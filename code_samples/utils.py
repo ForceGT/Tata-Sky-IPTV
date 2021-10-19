@@ -2,7 +2,11 @@ import jwtoken
 import threading
 
 m3ustr = '#EXTM3U    x-tvg-url="http://botallen.live/epg.xml.gz" \n\n'
-kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
+kodiProps = "\n".join(
+    "#KODIPROP:inputstreamaddon=inputstream.adaptive", # Use "#KODIPROP:inputstream=inputstream.adaptive" for kodi >= 19
+    "#KODIPROP:inputstream.adaptive.manifest_type=mpd",
+    "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
+)
 
 
 def processTokenChunks(channelList):
@@ -21,7 +25,7 @@ def processTokenChunks(channelList):
                                                                             channel['channel_name']))
             print('Continuing...Please get license manually for channel :', channel['channel_name'])
         m3ustr += "#EXTINF:-1  " + "tvg-id=ts" + channel['channel_id'] + "  tvg-logo=" + channel['channel_logo'] + "   group-title=" + channel['channel_genre'] + ",   "
-        m3ustr += channel['channel_name'] + "\n" + kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + channel['channel_url'] + "\n\n"
+        m3ustr += channel['channel_name'] + "\n" + kodiProps + "\n" + kodiPropLicenseUrl + "\n" + channel['channel_url'] + "\n\n"
 
 
 def m3ugen():
