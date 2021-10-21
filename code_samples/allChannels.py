@@ -26,17 +26,22 @@ def getChannelInfo(channelId):
 
 
 def saveChannelsToFile():
+    new_channel_list = sorted(channel_list, key = lambda i: i['channel_id'])
     print(len(channel_list))
+    print(len(new_channel_list))
     with open("allChannels.json", "w") as channel_list_file:
-        json.dump(channel_list, channel_list_file)
+        json.dump(new_channel_list, channel_list_file)
         channel_list_file.close()
 
 
 def processChnuks(channel_lists):
-    for channel in channel_lists:
-        print("Getting channelId:{}".format(channel.get('id', '')))
-        channel_id = str(channel.get('id', ''))
-        getChannelInfo(channel_id)
+    try:
+        for channel in channel_list:
+            print("Getting channelId:{}".format(channel.get('id', '')))
+            channel_id = str(channel.get('id', ''))
+            getChannelInfo(channel_id)
+    except:
+        print("exception on channel id " + str(channel.get('id', '')))
 
 
 def getAllChannels():
@@ -46,8 +51,8 @@ def getAllChannels():
     channel_list = x.json()['data']['list']
     print("Total Channels fetched:", len(channel_list))
     print("Fetching channel info..........")
-    for i in range(0, len(channel_list), 5):
-        t = threading.Thread(target=processChnuks, args=([channel_list[i:i + 5]]))
+    for i in range(len(channel_list)):
+        t = threading.Thread(target=processChnuks, args=([channel_list[i:i + 1]]))
         ts.append(t)
         t.start()
     for t in ts:
