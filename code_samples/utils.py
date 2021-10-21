@@ -1,5 +1,4 @@
 import jwtoken
-import threading
 
 m3ustr = '#EXTM3U    x-tvg-url="http://botallen.live/epg.xml.gz" \n\n'
 kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
@@ -28,12 +27,9 @@ def m3ugen():
     ts = []
     global m3ustr
     channelList = jwtoken.getUserChannelSubscribedList()
-    for i in range(0, len(channelList), 5):
-        t = threading.Thread(target=processTokenChunks, args=([channelList[i:i + 5]]))
+    for i in range(len(channelList)):
+        t = processTokenChunks(channelList[i:i + 1])
         ts.append(t)
-        t.start()
-    for t in ts:
-        t.join()
 
     print("================================================================")
     print("Found total {0} channels subscribed by user \nSaving them to m3u file".format(len(channelList)))
