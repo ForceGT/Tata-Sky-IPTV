@@ -23,6 +23,11 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 - Minimum Supported Version : Android 5.0
 
 # Version Changelog 
+### 2.7
+- Bumped up dependencies and channel count
+- Fix a minor issue where app can crash
+
+
 ### 2.6
 - Bumped up dependencies and channel count
 
