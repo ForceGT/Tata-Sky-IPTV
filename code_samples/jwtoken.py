@@ -80,31 +80,20 @@ def getUserChannelSubscribedList():
 # This is included in the payload to get the jwt
 
 def getEpidList(channelId):
-
-    #uncomment the lines to have non exploit mode
-    
     epidList = []
     selectedChannel = {}
-    # includedChannels = getUserChannelSubscribedList()
-    includedChannels = getChannelList()
+    includedChannels = getUserChannelSubscribedList()
     for channel in includedChannels:
         if channel['channel_id'] == str(channelId):
             selectedChannel.update(channel)
     userDetails = getUserDetails()
-    # entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
-    entitlements = selectedChannel["channel_entitlements"]
+    entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
     for entitlement in entitlements:
-        epidList.append({
-             "epid": "Subscription",
-             "bid": entitlement
-        })
-    # for entitlement in entitlements:
-    #     if entitlement in selectedChannel['channel_entitlements']:
-    #         epidList.append({
-    #             "epid": "Subscription",
-    #             "bid": entitlement
-    #         })
-
+        if entitlement in selectedChannel['channel_entitlements']:
+            epidList.append({
+                "epid": "Subscription",
+                "bid": entitlement
+            })
     return epidList
 
 
