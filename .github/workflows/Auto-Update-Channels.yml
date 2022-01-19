@@ -1,0 +1,25 @@
+name: Tata Sky allChannels.json Updater
+on:
+ schedule:
+   - cron: "0 0 */5 * *"
+ workflow_dispatch:
+  inputs:
+defaults:
+  run:
+    shell: bash
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Daily Loop
+      run: |
+            git config --global user.name "Shra1V32"
+            git config --global user.email "namanageshwar@outlook.com"
+            git clone "https://${{ secrets.my_token }}@github.com/Shra1V32/Tata-Sky-IPTV.git"
+            cd Tata-Sky-IPTV/code_samples
+            python3 allChannels.py
+            cd ..
+            git add .
+            git commit -m "Updated allChannels.json at "$(date -u +%D-%T%P)""
+            git push
+            exit
