@@ -15,7 +15,7 @@ A script to generate the m3u playlist containing direct streamable file (.mpd or
 <hr>
 
 - You can simply use the android app in your mobile phone or TV, login and then generate an m3u
-- The app can be found [here](static/app.apk)
+- The app can be found in the [releases page](https://github.com/ForceGT/Tata-Sky-IPTV/releases)
 - Note that you have to generate a new playlist before the exploit time, that is mentioned in the app, or just one day for simplicity
 - The app can smartly detect if you have a playlist already in the mentioned directory,(the location of the file can be found inside the app), and it overwrites the content if you generate it again and again
 - You can point Tivimate to the location mentioned in the app, and just update once whenever you want to watch the playlist, should work fine
