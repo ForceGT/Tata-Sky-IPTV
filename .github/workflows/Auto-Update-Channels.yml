@@ -17,7 +17,7 @@ jobs:
             git config --global user.email "namanageshwar@outlook.com"
             git clone "https://${{ secrets.my_token }}@github.com/Shra1V32/Tata-Sky-IPTV.git"
             cd Tata-Sky-IPTV/code_samples
-            channels=$(python3 allChannels.py | tail -n1)
+            channels=$(python3 allChannels.py |tr -d '\0' | tail -n1)
             cd ..
             git add .
             git commit -m "Updated allChannels.json of $channels channels at "$(date -u +%D-%T%P)""
