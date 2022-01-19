@@ -20,8 +20,9 @@ def processTokenChunks(channelList):
             print("Didn't get license for channel: Id: {0} Name:{1}".format(channel['channel_id'],
                                                                             channel['channel_name']))
             print('Continuing...Please get license manually for channel :', channel['channel_name'])
-        m3ustr += "#EXTINF:-1  " + "tvg-id=ts" + channel['channel_id'] + "  tvg-logo=" + channel['channel_logo'] + "   group-title=" + channel['channel_genre'] + ",   "
-        m3ustr += channel['channel_name'] + "\n" + kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + channel['channel_url'] + "\n\n"
+        m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
+        m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
+            'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
 
 
 def m3ugen():
