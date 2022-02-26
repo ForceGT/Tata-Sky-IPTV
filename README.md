@@ -84,7 +84,6 @@ If you're interested in how this mechanism works, Refer to [docs](docs/working.m
 
 
 ## Discussion and Support 
-You can join the Telegram discussion [![homepage][1]][2]
-
+[![homepage][1]][2]
 [1]:  images/telegram.png
 [2]:  https://T.me/tskyiptv
