@@ -1,13 +1,15 @@
-# Tata Sky IPTV Script generator
+# Tata Sky/ Play IPTV Script generator
 
 A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) 
 based on the channels that the user has subscribed on the Tata Sky portal.
+
+[![GitHub forks](https://img.shields.io/github/forks/ForceGT/Tata-Sky-IPTV?logo=forks&style=plastic)](https://github.com/ForceGT/Tata-Sky-IPTV/network) [![GitHub stars](https://img.shields.io/github/stars/ForceGT/Tata-Sky-IPTV)](https://github.com/ForceGT/Tata-Sky-IPTV/stargazers) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
 ## Requirements
 
 + A working brain
 + Knowledge of basic python
-+ A working Tata Sky account
++ A working Tata Sky/ Play account
 + Channels that you want to watch, already subscribed **(I'm sorry, no freebies)**
 + An app capable of reading a [m3u](https://docs.fileformat.com/audio/m3u/) file
 
@@ -88,3 +90,10 @@ If you're interested in how this mechanism works, Refer to [docs](docs/working.m
 
 [1]:  images/telegram.png
 [2]:  https://T.me/tskyiptv
+
+## License and Disclosures
+
+This code is just a CASE STUDY on how the authentication mechanism and live streaming using IPTV works
+I am in no way responsible if you misuse the code and cause revenue loss to the concerned parties and owners of the portal
+
+This code is protected under the [MIT](https://opensource.org/licenses/MIT) license

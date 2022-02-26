@@ -1,6 +1,6 @@
 ## Authentication
 
-![](images/tsky.png)
+![](../images/tsky.png)
 
 The above diagram explains how things work in the case of authentication in the portal
 
