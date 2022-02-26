@@ -47,37 +47,11 @@ Minimum Supported  Android Version : Android 5.0
 
 
 ## Some Good M3U Players for different platforms
+Find some good M3u players [here](docs/m3uplayers.md)
 
-### Android/ Android TV
-- [Tivimate](https://play.google.com/store/apps/details?id=ar.tvplayer.tv&hl=en_IN&gl=US) is a fantastic app that works well with both `TV` and `Mobile`
-- [OTT Navigator](https://play.google.com/store/apps/details?id=studio.scillarium.ottnavigator&hl=en_IN&gl=US) : `TV` 
-- [Kodi](https://kodi.tv/): `TV` and `Mobile`
-- [NS Player](https://play.google.com/store/apps/details?id=com.genuine.leone) is `recommended` for `Mobile`
-
-> Caution : Kodi acts weirdly sometimes, so use it at your own risk
-
-### Desktops
-- Currently no desktop player has support for DASH with DRM. If you know of such an app let me know
-
-### Web
-- There is no support for playing m3u as a playlist, however you can take an individual channel from your generated m3u and play it
-
-#### Playing in a browser (tried with Chrome)
-
-+ I personally use [Native MPEG-Dash + HLS Playback](https://chrome.google.com/webstore/detail/native-mpeg-dash-%20-hls-pl/cjfbmleiaobegagekpmlhmaadepdeedn) which doesn't suppport playlists yet
-
-See the below section on `Getting hold of individual channels` to know how to get the link to play a specific channel as you cannot play the entire playlist
-+ Get the channel url (ends with ```.mpd```) and paste it in the browser
-+ The extension automatically asks for the license url. You should then input the  license url.
-
-#### Getting hold of individual channels
-- Just open the m3u file generated above in any text editor of your choice and search for your channel using the search functionality of your editor
-- The channel url is the one that starts with `https`and ends with ```.mpd``` 
-- The license url following the `#KODIPROP:inputstream.adaptive.license_key=` field
-- The license url and the channel url are the only two fields needed to play the channel 
-
-
-
+## Auto Generating Playlists in 24 hours
+- Take a look at [Shravan's Idea](https://github.com/Shra1V32/TataSky-Playlist-AutoUpdater)
+- Take a look at [Saif's Idea](https://github.com/saifshaikh1805/tata-sky-m3u)
 
 ## How it works
 
