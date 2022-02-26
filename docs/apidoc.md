@@ -70,32 +70,9 @@ Request Type| Endpoint | Meta | Params | Headers
 
 
 
-## Miscellaneous Info 
 
 
-To get a valid license take the `dashWidewineLicenseUrl` value and append to it `ls_session` where `ls_session` will be the token generated in Authentication Step 2
 
-For example : 
-
-`dashWidewineLicenseUrl`: "https://tatasky.live.ott.irdeto.com/Widevine/getlicense?CrmId=tatasky&AccountId=tatasky&ContentId=400000077"
-
-and your jwt token generated in authentication endpoint number 2 is `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImNvbnRyb2xfc2lnbmluZ19rZXlfcHJvZHVjdGlvbl8xNTk5MTYxMzc0NzY0In0.eyJzdWIiOiIxMjY3Nzg0MTM4IiwiaXNlIjp0cnVlLCJqdGkiOiJlNWJmMTVhZi0xNWM2LTQzNWUtYTU5MS04YjkzZjlkZmY5YmIiLCJhaWQiOiJ0Y` 
-
-Then your valid license url becomes `https://tatasky.live.ott.irdeto.com/Widevine/getlicense?CrmId=tatasky&AccountId=tatasky&ContentId=400000077&ls_session=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImNvbnRyb2xfc2lnbmluZ19rZXlfcHJvZHVjdGlvbl8xNTk5MTYxMzc0NzY0In0.eyJzdWIiOiIxMjY3Nzg0MTM4IiwiaXNlIjp0cnVlLCJqdGkiOiJlNWJmMTVhZi0xNWM2LTQzNWUtYTU5MS04YjkzZjlkZmY5YmIiLCJhaWQiOiJ0Y`
-
-#### How mpd works:
-
-I know you don't want to get into the details of how dash/hls works but this is important to know if you get lost somewhere 
-
-+ dash files or mpd files have segments which are a list of chunks and not the entire file since these are updated on the go while a live stream is on
-+ After every x seconds dash players fetch a new segment which in turn has new chunk links 
-+ According to the widewine policy, before fetching each chunk , the player has to verify if the right person gets the chunk and thus a license url is always needed to verify the same
-
-#### How to use the links : 
-
-+ Download https://chrome.google.com/webstore/detail/native-mpeg-dash-%20-hls-pl/cjfbmleiaobegagekpmlhmaadepdeedn or any other similar extension capable of playing dash/hls media 
-+ Enter the `dashWidewinePlayUrl` in the address bar of your browser
-+ When the extension asks for the licenseurl the supply the link as generated above
 
 
 
