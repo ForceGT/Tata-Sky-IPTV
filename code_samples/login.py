@@ -2,6 +2,7 @@ from constants import API_BASE_URL, HEADER_X_APP_ID, HEADER_X_APP_KEY, HEADER_X_
     HEADER_X_DEVICE_TYPE, HEADER_X_API_KEY
 import requests
 import json
+import argparse
 
 url = API_BASE_URL + "rest-api/pub/api/v2/login/ott"
 header_app_id = "ott-app"
@@ -130,3 +131,14 @@ def lookupSid(rmn):
     else:
         print("Could not get Subscribed ID.. Message:", msg)
         exit(0)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--otp", type=int, help="OTP for Login", required=True)
+    parser.add_argument("--sid", type=int, help="The Subscriber ID for login", required=True)
+    parser.add_argument("--rmn", type=int, help="The Registered Mobile Number for login", required=True)
+    args = parser.parse_args()
+    print(f'Entered Params: SID:{args.sid}, RMN:{args.rmn}, OTP: {args.otp}')
+    print("Logging in with OTP....")
+    loginWithOTP(sid=args.sid, rmn=args.rmn, otp=args.otp)
