@@ -99,11 +99,10 @@ def getHeaders():
         'authority': 'tm.tapi.videoready.tv',
         'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36',
         'content-type': 'application/json',
-        'device_details': '{"app":"11.0","lo":"en_IN","os":"10",'
-                          '"device_id":"YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA","ip":"","dn":"ONEPLUS A6003",'
-                          '"device_type":"ANDROID","device_category":"open","manufacturer":"OnePlus","ma":"",'
-                          '"car":"","sname":"","device_platform":"MOBILE","location":"","model":"ONEPLUS A6003",'
-                          '"pl":"Android","net":"Wifi"}',
+        'device_details': '{"pl":"web","os":"WINDOWS","lo":"en-us","app":"1.36.09","dn":"PC",'
+                          '"bv":100,"bn":"CHROME","device_id":"a13ce448c87mar1486c369843c30e4331638560148363",'
+                          '"device_type":"WEB","device_platform":"PC","device_category":"open",'
+                          '"manufacturer":"WINDOWS_CHROME_100","model":"PC","sname":""}'
         'origin': 'https://watch.tataplay.com',
         'referer': 'https://watch.tataplay.com/'
     }
