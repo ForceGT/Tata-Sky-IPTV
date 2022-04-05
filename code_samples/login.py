@@ -4,7 +4,7 @@ import requests
 import json
 import argparse
 
-url = API_BASE_URL + "rest-api/pub/api/v2/login/ott"
+url = API_BASE_URL_2 + "rest-api/pub/api/v3/login/ott"
 header_app_id = "ott-app"
 header_app_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImR2ci11aSIsImtleSI6IiJ9.XUQUYRo82fD_6yZ9ZEWcJkc0Os1IKbpzynLzSRtQJ-E"
 header_api_key = "9a8087f911b248c7945b926f254c833b"
