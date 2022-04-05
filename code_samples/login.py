@@ -75,6 +75,7 @@ def loginWithOTP(sid, rmn, otp):
             print("Saving user details to userDetails.json so that you don't have to login again")
             user.update({
                 "accessToken": responseData['accessToken'],
+                "expiresIn": responseData['expiresIn'],
                 "entitlements": responseData['userDetails']['entitlements'],
                 "sid": responseData['userDetails']['sid'],
                 "sName": responseData['userDetails']['sName'],
