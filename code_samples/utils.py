@@ -2,7 +2,7 @@ import jwtoken as jwt
 import threading
 
 
-m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.ml/epg.xml.gz" \n\n'
+m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.cf/epg.xml.gz" \n\n'
 kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
 
 
