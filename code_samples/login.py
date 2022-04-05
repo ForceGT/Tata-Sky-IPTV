@@ -5,11 +5,6 @@ import json
 import argparse
 
 url = API_BASE_URL_2 + "rest-api/pub/api/v3/login/ott"
-header_app_id = "ott-app"
-header_app_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImR2ci11aSIsImtleSI6IiJ9.XUQUYRo82fD_6yZ9ZEWcJkc0Os1IKbpzynLzSRtQJ-E"
-header_api_key = "9a8087f911b248c7945b926f254c833b"
-platform_android = "Android"
-app_version = "11.0"
 fallback_rmn = ""
 user = {}
 
@@ -101,16 +96,16 @@ def getPayload(auth, sid, loginOpt, rmn):
 
 def getHeaders():
     headers = {
-        HEADER_X_APP_ID: header_app_id,
-        HEADER_X_APP_KEY: header_app_key,
-        HEADER_X_API_KEY: header_api_key,
+        'authority': 'tm.tapi.videoready.tv',
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.63 Safari/537.36',
+        'content-type': 'application/json',
         'device_details': '{"app":"11.0","lo":"en_IN","os":"10",'
                           '"device_id":"YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA","ip":"","dn":"ONEPLUS A6003",'
                           '"device_type":"ANDROID","device_category":"open","manufacturer":"OnePlus","ma":"",'
                           '"car":"","sname":"","device_platform":"MOBILE","location":"","model":"ONEPLUS A6003",'
                           '"pl":"Android","net":"Wifi"}',
-        'Content-Type': 'application/json',
-        'User-Agent': 'PostmanRuntime/7.26.10'
+        'origin': 'https://watch.tataplay.com',
+        'referer': 'https://watch.tataplay.com/'
     }
     return headers
 
