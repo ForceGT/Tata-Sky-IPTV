@@ -2,7 +2,7 @@ import jwtoken as jwt
 import threading
 
 
-m3ustr = '#EXTM3U  x-tvg-url="https://github.com/Shra1V32/epg/raw/master/epg.xml.gz" \n\n'
+m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.cf/epg.xml.gz" \n\n'
 kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
 
 
@@ -22,7 +22,7 @@ def processTokenChunks(channelList):
                                                                             channel['channel_name']))
             print('Continuing...Please get license manually for channel :', channel['channel_name'])
         m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
-        m3ustr += "tvg-id=" + "\"" + "ts" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
+        m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
             'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
 
 
