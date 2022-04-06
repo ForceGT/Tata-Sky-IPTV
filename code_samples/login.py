@@ -102,7 +102,7 @@ def getHeaders():
         'device_details': '{"pl":"web","os":"WINDOWS","lo":"en-us","app":"1.36.09","dn":"PC",'
                           '"bv":100,"bn":"CHROME","device_id":"a13ce448c87mar1486c369843c30e4331638560148363",'
                           '"device_type":"WEB","device_platform":"PC","device_category":"open",'
-                          '"manufacturer":"WINDOWS_CHROME_100","model":"PC","sname":""}'
+                          '"manufacturer":"WINDOWS_CHROME_100","model":"PC","sname":""}',
         'origin': 'https://watch.tataplay.com',
         'referer': 'https://watch.tataplay.com/'
     }
