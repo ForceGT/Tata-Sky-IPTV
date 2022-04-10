@@ -8,12 +8,15 @@ API_BASE_URL = "https://kong-tatasky.videoready.tv/"
 channel_list = []
 
 
-def getChannelInfo(channelId):
+def getChannelInfo(channel):
+    channelId = str(channel.get('id', ''))
     url = "{}content-detail/pub/api/v2/channels/{}".format(API_BASE_URL, channelId)
     x = requests.get(url)
     meta_data= x.json()['data']['meta']
     channel_meta = x.json()['data']['channelMeta']
     channel_detail_dict = x.json()['data']['detail']
+    lang = ";".join(channel.get('subTitles', []))
+    genre = ";".join(channel_meta.get('genre', []))
     onechannl = {
         "channel_id": str(channelId),
         "channel_name": channel_meta.get('channelName', ''),
@@ -21,7 +24,7 @@ def getChannelInfo(channelId):
         "channel_url": channel_detail_dict.get('dashWidewinePlayUrl', ''),
         "channel_entitlements": channel_detail_dict.get('entitlements', ''),
         "channel_logo": channel_meta.get('logo', ''),
-        "channel_genre": channel_meta.get('primaryGenre',"")
+        "channel_genre": lang + ";" + genre
     }
     channel_list.append(onechannl)
 
@@ -36,8 +39,8 @@ def saveChannelsToFile():
 def processChnuks(channel_lists):
     for channel in channel_lists:
         print("Getting channelId:{}".format(channel.get('id', '')))
-        channel_id = str(channel.get('id', ''))
-        getChannelInfo(channel_id)
+        # channel_id = str(channel.get('id', ''))
+        getChannelInfo(channel)
 
 
 def getAllChannels():
