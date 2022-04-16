@@ -3,10 +3,9 @@
 A script to generate the m3u playlist containing direct streamable file (.mpd or MPEG-DASH or DASH) 
 based on the channels that the user has subscribed on the Tata Sky portal.
 
+# NOTE: Low maintainance, PRs will be accepted
+
 [![GitHub forks](https://img.shields.io/github/forks/ForceGT/Tata-Sky-IPTV?logo=forks&style=plastic)](https://github.com/ForceGT/Tata-Sky-IPTV/network) [![GitHub stars](https://img.shields.io/github/stars/ForceGT/Tata-Sky-IPTV)](https://github.com/ForceGT/Tata-Sky-IPTV/stargazers) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-
-
-## NOT MAINTAINED ANYMORE, BECAUSE MOST OF THE STUFF HAS BEEN PATCHED
 
 ## Requirements
 
@@ -53,14 +52,14 @@ Minimum Supported  Android Version : Android 5.0
 Find some good M3u players [here](docs/m3uplayers.md)
 
 ## Auto Generating Playlists in 24 hours
+The issue with the playlist, is that it expires in 24 hours as the access tokens have a validity of 24 hours. So the straightforward way would be do the entire process (without login) again after the playlist expires but man is lazy and so there are two brilliant solutions so that you lazy bums don't have to re-generate after a day
+
 - Take a look at [Shravan's Idea](https://github.com/Shra1V32/TataSky-Playlist-AutoUpdater)
 - Take a look at [Saif's Idea](https://github.com/saifshaikh1805/tata-sky-m3u)
 
 ## How it works
 
 If you're interested in how this mechanism works, Refer to [docs](docs/working.md)
-
-
 
 ## Discussion and Support 
 [![homepage][1]][2]
