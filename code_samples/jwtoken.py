@@ -102,18 +102,30 @@ def getHeaders():
     accessToken = userDetails['accessToken']
     subsId = userDetails['sid']
     sName = userDetails['sName']
+    profileId = userDetails['profileId']
     headers = {
-        'Authorization': 'bearer ' + accessToken,
-        'x-subscriber-id': str(subsId),
-        'x-app-id': 'ott-app',
-        'x-app-key': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6ImR2ci11aSIsImtleSI6IiJ9.XUQUYRo82fD_6yZ9ZEWcJkc0Os1IKbpzynLzSRtQJ-E',
-        'x-subscriber-name': str(sName),
-        'x-api-key': '9a8087f911b248c7945b926f254c833b',
-        'x-device-id': 'YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA',
-        'x-device-platform': 'MOBILE',
-        'x-device-type': 'ANDROID',
-        'Content-Type': 'application/json',
-        'User-Agent': 'PostmanRuntime/7.26.10'
+    'authority': 'tm.tapi.videoready.tv',
+    'accept': '*/*',
+    'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    'authorization': 'bearer ' + accessToken,
+    'content-type': 'application/json',
+    'device_details': '{"pl":"web","os":"WINDOWS","lo":"en-us","app":"1.36.35","dn":"PC","bv":103,"bn":"CHROME","device_id":"YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA","device_type":"WEB","device_platform":"PC","device_category":"open","manufacturer":"WINDOWS_CHROME_103","model":"PC","sname":"%s"}' % sName,
+    'kp': 'false',
+    'locale': 'ENG',
+    'origin': 'https://watch.tataplay.com',
+    'platform': 'web',
+    'profileid': str(profileId),
+    'referer': 'https://watch.tataplay.com/',
+    'sec-fetch-dest': 'empty',
+    'sec-fetch-mode': 'cors',
+    'sec-fetch-site': 'cross-site',
+    'sec-gpc': '1',
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.66 Safari/537.36',
+    'x-device-id': 'YVJNVFZWVlZ7S01UZmRZTWNNQ3lHe0RvS0VYS0NHSwA',
+    'x-device-platform': 'PC',
+    'x-device-type': 'WEB',
+    'x-subscriber-id': str(subsId),
+    'x-subscriber-name': str(sName)
     }
     return headers
 
