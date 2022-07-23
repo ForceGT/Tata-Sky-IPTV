@@ -1,5 +1,7 @@
+# Generates Kodi playlist by default, If you want OTT Navigator Supported Playlist, pass '--ott-navigator' as argument.
 import jwtoken as jwt
 import threading
+import sys
 
 
 m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.cf/epg.xml.gz" \n\n'
@@ -16,7 +18,11 @@ def processTokenChunks(channelList):
         ls_session_key = jwt.generateJWT(channel['channel_id'], iterative=False)
         if ls_session_key != "":
             licenseUrl = channel['channel_license_url'] + "&ls_session=" + ls_session_key
-            kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
+            try: 
+                if sys.argv[1]=='--ott-navigator':
+                    kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
+            except IndexError:
+                    kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
         else:
             print("Didn't get license for channel: Id: {0} Name:{1}".format(channel['channel_id'],
                                                                             channel['channel_name']))
