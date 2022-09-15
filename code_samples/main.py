@@ -1,6 +1,7 @@
 import login
 import utils
 import jwtoken as jwt
+import requests
 
 while True:
     try:
@@ -23,11 +24,26 @@ while True:
     print("4. Exit")
     print("*************************************************************")
     print("\n")
-    ch = int(input("Enter your choice:"))
+    try:
+        ch = int(input("Enter your choice:"))
+    except (EOFError, KeyboardInterrupt):
+        print("")
+        ch = 4
 
     if ch == 1:
         rmn = str(input("Enter your Registered Mobile Number without the country code: "))
-        sid = str(input("Enter your Subscriber Id: "))
+        try:
+            r = requests.post('https://tm.tapi.videoready.tv/rest-api/pub/api/v2/subscriberLookup', json={"rmn": rmn}, timeout=10)
+            resp = r.json()
+            if resp['code'] != 0: raise ValueError # Usually invalid RMN
+            sids = [ i['sid'] for i in resp['data']['sidList']]
+            if len(sids) > 1:
+                print("Multiple Subscriber IDs found for this RMN:")
+                print("\n".join(sids))
+                raise Exception("Need to manually select the SID")
+            sid = str(input("Enter your Subscriber Id [" + sids[0] + "]: ")) or sids[0]
+        except:
+            sid = str(input("Enter your Subscriber Id: "))
         pwd = str(input("Enter your password: "))
         print("Trying to Login with password ............")
         print("\n \n")
@@ -35,7 +51,18 @@ while True:
         login.loginWithPass(sid=sid, rmn=rmn, pwd=pwd)
     elif ch == 2:
         rmn = str(input("Enter your Registered Mobile No without the Country Code: "))
-        sid = str(input("Enter your Subscriber Id: "))
+        try:
+            r = requests.post('https://tm.tapi.videoready.tv/rest-api/pub/api/v2/subscriberLookup', json={"rmn": rmn}, timeout=10)
+            resp = r.json()
+            if resp['code'] != 0: raise ValueError # Usually invalid RMN
+            sids = [ i['sid'] for i in resp['data']['sidList']]
+            if len(sids) > 1:
+                print("Multiple Subscriber IDs found for this RMN:")
+                print("\n".join(sids))
+                raise Exception("Need to manually select the SID")
+            sid = str(input("Enter your Subscriber Id [" + sids[0] + "]: ")) or sids[0]
+        except:
+            sid = str(input("Enter your Subscriber Id: "))
         login.generateOTP(sid=sid, rmn=rmn)
         otp = str(input("Enter the OTP sent to your rmn: "))
         print("\n \n")
