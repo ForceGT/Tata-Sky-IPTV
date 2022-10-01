@@ -7,6 +7,11 @@ based on the channels that the user has subscribed on the Tata Sky portal.
 
 [![GitHub forks](https://img.shields.io/github/forks/ForceGT/Tata-Sky-IPTV?logo=forks&style=plastic)](https://github.com/ForceGT/Tata-Sky-IPTV/network) [![GitHub stars](https://img.shields.io/github/stars/ForceGT/Tata-Sky-IPTV)](https://github.com/ForceGT/Tata-Sky-IPTV/stargazers) [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
+
+# Migration notice
+
+This repository is now maintained via Github Actions only, and I don't personally maintain it. It initially began as a proof of concept code for being able to generate an m3u from Tata Play servers. It was not very user friendly, as it was just done for curiosity. Shravan has rendered my research into a very user friendly method of generation, which you can take a look [here](https://github.com/Shra1V32/TataSky-Playlist-AutoUpdater). Saif has also done a brilliant job [here](https://github.com/saifshaikh1805/tata-sky-m3u). However, if you've come here and are reading this, kindly star the repository and go to any one of these
+
 ## Requirements
 
 + A working brain
