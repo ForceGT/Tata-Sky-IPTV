@@ -3,6 +3,11 @@ import jwtoken as jwt
 import threading
 import sys
 
+isOttNavigator = False
+args = len(sys.argv)
+
+if args == 2 and sys.argv[1] == '--ott-navigator':
+    isOttNavigator = True
 
 m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.cf/epg.xml.gz" \n\n'
 kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
@@ -18,10 +23,9 @@ def processTokenChunks(channelList):
         ls_session_key = jwt.generateJWT(channel['channel_id'], iterative=False)
         if ls_session_key != "":
             licenseUrl = channel['channel_license_url'] + "&ls_session=" + ls_session_key
-            try: 
-                if sys.argv[1]=='--ott-navigator':
+            if isOttNavigator:
                     kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
-            except IndexError:
+            else:
                     kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
         else:
             print("Didn't get license for channel: Id: {0} Name:{1}".format(channel['channel_id'],

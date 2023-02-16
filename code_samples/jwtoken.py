@@ -12,9 +12,8 @@ def getUserDetails():
 
 # This method gets the channelList from the allChannels.json file and returns it as a list/dictionary
 def getChannelList():
-    with open('allChannels.json', 'r') as allChannelsFile:
-        channelList = json.load(allChannelsFile)
-    return channelList
+    response = requests.get("https://gist.githubusercontent.com/Shra1V32/ee918d53b2f0b65888809ba85f0e0183/raw/allChannels.json", timeout=5)
+    return response.json()
 
 
 # This method will generate a jwt based on the supplied channelId
