@@ -13,7 +13,13 @@ def getChannelInfo(channelId):
     x = requests.get(url)
     meta_data= x.json()['data']['meta']
     channel_meta = x.json()['data']['channelMeta']
+    channel_genre_alt = x.json()['data']['channelMeta']['genre']
     channel_detail_dict = x.json()['data']['detail']
+
+    channel_genre = channel_meta.get('primaryGenre')
+    
+    if channel_genre is None and channel_genre_alt:
+        channel_genre = channel_genre_alt[0]
     onechannl = {
         "channel_id": str(channelId),
         "channel_name": channel_meta.get('channelName', ''),
@@ -21,7 +27,7 @@ def getChannelInfo(channelId):
         "channel_url": channel_detail_dict.get('dashWidewinePlayUrl', ''),
         "channel_entitlements": channel_detail_dict.get('entitlements', ''),
         "channel_logo": channel_meta.get('logo', ''),
-        "channel_genre": channel_meta.get('primaryGenre',"")
+        "channel_genre": channel_genre
     }
     channel_list.append(onechannl)
 
