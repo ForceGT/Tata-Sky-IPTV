@@ -55,6 +55,12 @@ def getPayloadForJWT(channelId):
         "epids": getEpidList(channelId)
     }
 
+def getPayloadForCommonJWT():
+    return {
+        "action": "stream",
+        "epids": getCommonEpidList()
+    }
+
 
 # This method returns and also saves all the subscribed channels based on the users choices in the tatasky portal It
 # checks the user entitlements in all the channel entitlements and keeps the channel if a specific user entitlement
@@ -94,6 +100,36 @@ def getEpidList(channelId):
                 "bid": entitlement
             })
     return epidList
+
+def getCommonEpidList() -> list:
+    epidList = []
+    userDetails = getUserDetails()
+    entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
+    for entitlement in entitlements:
+        epidList.append({
+            "epid": "Subscription",
+            "bid": entitlement
+        })
+    return epidList
+
+def getCommonJwt() -> str:
+    url = API_BASE_URL + "auth-service/v1/oauth/token-service/token"
+    payload = json.dumps(getPayloadForCommonJWT())
+    headers = getHeaders()
+    x = requests.request("POST", url, headers=headers, data=payload)
+
+    if x.status_code == 200:
+        msg = x.json()['message']
+        if msg == 'OAuth Token Generated Successfully':
+            token = x.json()['data']['token']
+            return token
+        else:
+            print(msg)
+            return ""
+    else:
+        print("Response:", x.text)
+        print("Could not generate JWT for common token")
+        return ""
 
 
 def getHeaders():

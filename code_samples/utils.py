@@ -20,17 +20,11 @@ def processTokenChunks(channelList):
         print("Channel List is empty ..Exiting")
         exit(1)
     for channel in channelList:
-        ls_session_key = jwt.generateJWT(channel['channel_id'], iterative=False)
-        if ls_session_key != "":
-            licenseUrl = channel['channel_license_url'] + "&ls_session=" + ls_session_key
-            if isOttNavigator:
-                    kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
-            else:
-                    kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
+        licenseUrl = channel['channel_license_url'] + "&ls_session=" + commonJwt
+        if isOttNavigator:
+                kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
         else:
-            print("Didn't get license for channel: Id: {0} Name:{1}".format(channel['channel_id'],
-                                                                            channel['channel_name']))
-            print('Continuing...Please get license manually for channel :', channel['channel_name'])
+                kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
         m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
         m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
             'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
@@ -38,8 +32,11 @@ def processTokenChunks(channelList):
 
 def m3ugen():
     ts = []
-    global m3ustr
+    global m3ustr, commonJwt
     channelList = jwt.getUserChannelSubscribedList()
+    commonJwt = jwt.getCommonJwt()
+    if not commonJwt:
+        raise Exception("Could not generate common JWT")
     for i in range(0, len(channelList), 5):
         t = threading.Thread(target=processTokenChunks, args=([channelList[i:i + 5]]))
         ts.append(t)
