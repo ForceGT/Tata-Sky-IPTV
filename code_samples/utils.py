@@ -12,6 +12,9 @@ if args == 2 and sys.argv[1] == '--ott-navigator':
 m3ustr = '#EXTM3U  x-tvg-url="https://www.tsepg.cf/epg.xml.gz" \n\n'
 kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.alpha"
 
+# Checks for the common elements in two lists
+def has_common_element(list1, list2):
+    return any(item in list2 for item in list1)
 
 def processTokenChunks(channelList):
     global m3ustr
@@ -20,7 +23,18 @@ def processTokenChunks(channelList):
         print("Channel List is empty ..Exiting")
         exit(1)
     for channel in channelList:
-        licenseUrl = channel['channel_license_url'] + "&ls_session=" + commonJwt
+        epidList = jwt.getEpidList(channel['channel_id']) # List[dict]
+        found = False
+        for token, epids in tokensWithEpids.items():
+            if has_common_element([epid['bid'] for epid in epidList], epids):
+                licenseUrl = channel['channel_license_url'] + "&ls_session=" + token
+                found = True
+                break
+        if not found:
+            print("Could not find a token for channel: " + channel['channel_name'])
+            print("EPID List: " + str(epidList))
+            print("Tokens with EPID List: " + str(tokensWithEpids))
+            continue
         if isOttNavigator:
                 kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
         else:
@@ -32,11 +46,15 @@ def processTokenChunks(channelList):
 
 def m3ugen():
     ts = []
-    global m3ustr, commonJwt
+    global m3ustr, commonJwt, tokensWithEpids
     channelList = jwt.getUserChannelSubscribedList()
     commonJwt = jwt.getCommonJwt()
+    tokensWithEpids = {}
     if not commonJwt:
         raise Exception("Could not generate common JWT")
+    for token in commonJwt:
+        tokensWithEpids[token] = jwt.extractEpidsFromToken(token) 
+
     for i in range(0, len(channelList), 5):
         t = threading.Thread(target=processTokenChunks, args=([channelList[i:i + 5]]))
         ts.append(t)

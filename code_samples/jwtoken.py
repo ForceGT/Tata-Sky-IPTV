@@ -1,6 +1,7 @@
 from constants import API_BASE_URL
 import requests
 import json
+import base64
 
 
 # This method gets the userDetails from the userDetails file and returns it as a dictionary
@@ -12,7 +13,7 @@ def getUserDetails():
 
 # This method gets the channelList from the allChannels.json file and returns it as a list/dictionary
 def getChannelList():
-    response = requests.get("https://gist.githubusercontent.com/Shra1V32/ee918d53b2f0b65888809ba85f0e0183/raw/allChannels.json", timeout=5)
+    response = requests.get("https://gist.githubusercontent.com/Shra1V32/ee918d53b2f0b65888809ba85f0e0183/raw/allChannels.json", timeout=15)
     return response.json()
 
 
@@ -56,11 +57,17 @@ def getPayloadForJWT(channelId):
     }
 
 def getPayloadForCommonJWT():
-    return {
+    epidList = getCommonEpidList()
+    multipleEpid = len(epidList) > 1
+    payloads = [{
         "action": "stream",
-        "epids": getCommonEpidList()
-    }
-
+        "epids": epid
+    } for epid in epidList] if multipleEpid else [{
+        "action": "stream",
+        "epids": epidList
+    }]
+    return payloads
+            
 
 # This method returns and also saves all the subscribed channels based on the users choices in the tatasky portal It
 # checks the user entitlements in all the channel entitlements and keeps the channel if a specific user entitlement
@@ -101,10 +108,33 @@ def getEpidList(channelId):
             })
     return epidList
 
+# Decodes the token and returns the epid list
+def extractEpidsFromToken(token):
+    bidList = []
+    data = token.split(".")[1]
+    epids = base64.b64decode(data + "==").decode('utf-8')
+    epidList = json.loads(epids)
+    for epid in epidList['ent']:
+        bidList.append(epid['bid'])
+    return bidList
+
 def getCommonEpidList() -> list:
     epidList = []
+    groupedEpidList = []
     userDetails = getUserDetails()
     entitlements = [entitlement['pkgId'] for entitlement in userDetails["entitlements"]]
+    if len(entitlements) > 5:
+        # Group the entitlements into chunks of 8
+        groupedEntitlements = [entitlements[i:i + 5] for i in range(0, len(entitlements), 5)]
+        for groupedEntitlement in groupedEntitlements:
+            epidList = []
+            for entitlement in groupedEntitlement:
+                epidList.append({
+                    "epid": "Subscription",
+                    "bid": entitlement
+                })
+            groupedEpidList.append(epidList)
+        return groupedEpidList
     for entitlement in entitlements:
         epidList.append({
             "epid": "Subscription",
@@ -112,24 +142,23 @@ def getCommonEpidList() -> list:
         })
     return epidList
 
-def getCommonJwt() -> str:
+def getCommonJwt():
     url = API_BASE_URL + "auth-service/v1/oauth/token-service/token"
-    payload = json.dumps(getPayloadForCommonJWT())
-    headers = getHeaders()
-    x = requests.request("POST", url, headers=headers, data=payload)
-
-    if x.status_code == 200:
-        msg = x.json()['message']
-        if msg == 'OAuth Token Generated Successfully':
-            token = x.json()['data']['token']
-            return token
+    payloads = getPayloadForCommonJWT()
+    tokens = []
+    for payload in payloads:
+        headers = getHeaders()
+        x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+        if x.status_code == 200:
+            msg = x.json()['message']
+            if msg == 'OAuth Token Generated Successfully':
+                token = x.json()['data']['token']
+                tokens.append(token)
         else:
-            print(msg)
+            print("Response:", x.text)
+            print("Could not generate common JWT")
             return ""
-    else:
-        print("Response:", x.text)
-        print("Could not generate JWT for common token")
-        return ""
+    return tokens
 
 
 def getHeaders():
