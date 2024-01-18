@@ -23,23 +23,27 @@ def processTokenChunks(channelList):
     if not channelList:
         print("Channel List is empty ..Exiting")
         exit(1)
-    epidLists = [jwt.getEpidList(channel['channel_id']) for channel in channelList]
-    
-    for token, epids in tokensWithEpids.items():
-        matching_channels = []
-        for i, epidList in enumerate(epidLists):
+    for channel in channelList:
+        epidList = jwt.getEpidList(channel['channel_id']) # List[dict]
+        found = False
+        for token, epids in tokensWithEpids.items():
             if has_common_element([epid['bid'] for epid in epidList], epids):
-                matching_channels.append(channelList[i])
+                licenseUrl = channel['channel_license_url'] + "&ls_session=" + token
+                found = True
                 break
-        if matching_channels:
-            licenseUrl = matching_channels[0]['channel_license_url'] + "&ls_session=" + token
-            if isOttNavigator:
+        if not found:
+            print("Could not find a token for channel: " + channel['channel_name'])
+            print("EPID List: " + str(epidList))
+            print("Tokens with EPID List: " + str(tokensWithEpids))
+            continue
+        if isOttNavigator:
                 kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
-            else:
+        else:
                 kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
-            m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
-            m3ustr += "tvg-id=" + "\"" + matching_channels[0]['channel_id'] + "\" " + "group-title=" + "\"" + matching_channels[0]['channel_genre'] + "\" " + "tvg-logo=\"" + matching_channels[0]['channel_logo'] + "\" ," + matching_channels[0]['channel_name'] + "\n" + matching_channels[0]['channel_url'] + "\n\n"
-        
+        m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
+        m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
+            'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
+
 
 def m3ugen():
     ts = []
@@ -53,7 +57,7 @@ def m3ugen():
     if not commonJwt:
         raise Exception("Could not generate common JWT")
     for token in commonJwt:
-        tokensWithEpids[token] = jwt.extractEpidsFromToken(token)
+        tokensWithEpids[token] = jwt.extractEpidsFromToken(token) 
 
     for i in range(0, len(channelList), 5):
         t = threading.Thread(target=processTokenChunks, args=([channelList[i:i + 5]]))
