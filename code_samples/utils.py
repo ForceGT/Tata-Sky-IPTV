@@ -17,32 +17,32 @@ kodiPropLicenseType = "#KODIPROP:inputstream.adaptive.license_type=com.widevine.
 def has_common_element(list1, list2):
     return any(item in list2 for item in list1)
 
+def find_matching_token(channel):
+    epidList = jwt.getEpidList(channel['channel_id'])
+    for token, epids in tokensWithEpids.items():
+        if has_common_element([epid['bid'] for epid in epidList], epids):
+            return token
+    return None, None
+
 def processTokenChunks(channelList):
     global m3ustr
-    kodiPropLicenseUrl = ""
     if not channelList:
         print("Channel List is empty ..Exiting")
         exit(1)
+
     for channel in channelList:
-        epidList = jwt.getEpidList(channel['channel_id']) # List[dict]
-        found = False
-        for token, epids in tokensWithEpids.items():
-            if has_common_element([epid['bid'] for epid in epidList], epids):
-                licenseUrl = channel['channel_license_url'] + "&ls_session=" + token
-                found = True
-                break
-        if not found:
+        token = find_matching_token(channel)
+        
+        if token is None:
             print("Could not find a token for channel: " + channel['channel_name'])
-            print("EPID List: " + str(epidList))
-            print("Tokens with EPID List: " + str(tokensWithEpids))
             continue
-        if isOttNavigator:
-                kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
-        else:
-                kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl + "|Content-Type=application/octet-stream|R{SSM}|"
-        m3ustr += kodiPropLicenseType + "\n" + kodiPropLicenseUrl + "\n" + "#EXTINF:-1 "
-        m3ustr += "tvg-id=" + "\"" + channel['channel_id'] + "\" " + "group-title=" + "\"" + channel['channel_genre'] + "\" " + "tvg-logo=\"" + channel[
-            'channel_logo'] + "\" ," + channel['channel_name'] + "\n" + channel['channel_url'] + "\n\n"
+
+        licenseUrl = channel['channel_license_url'] + "&ls_session=" + token
+        kodiPropLicenseUrl = "#KODIPROP:inputstream.adaptive.license_key=" + licenseUrl
+        if not isOttNavigator:
+            kodiPropLicenseUrl += "|Content-Type=application/octet-stream|R{SSM}|"
+
+        m3ustr += f"{kodiPropLicenseType}\n{kodiPropLicenseUrl}\n#EXTINF:-1 tvg-id=\"{channel['channel_id']}\" group-title=\"{channel['channel_genre']}\" tvg-logo=\"{channel['channel_logo']}\",{channel['channel_name']}\n{channel['channel_url']}\n\n"
 
 
 def m3ugen():
