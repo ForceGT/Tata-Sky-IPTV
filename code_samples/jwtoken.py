@@ -2,6 +2,7 @@ from constants import API_BASE_URL
 import requests
 import json
 import base64
+import time
 
 
 # This method gets the userDetails from the userDetails file and returns it as a dictionary
@@ -140,22 +141,31 @@ def getCommonEpidList() -> list:
         })
     return epidList
 
+def generateToken(url, headers, payload):
+    response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
+    if response.status_code == 200:
+        msg = response.json()['message']
+        if msg == 'OAuth Token Generated Successfully':
+            return response.json()['data']['token']
+    elif response.status_code == 429 and response.json()['message'] == 'API rate limit exceeded':
+        return "Rate Limit Exceeded"
+    return ""
+
 def getCommonJwt():
     url = API_BASE_URL + "auth-service/v1/oauth/token-service/token"
     payloads = getPayloadForCommonJWT()
     tokens = []
+    count = 0
     for payload in payloads:
         headers = getHeaders()
-        x = requests.request("POST", url, headers=headers, data=json.dumps(payload))
-        if x.status_code == 200:
-            msg = x.json()['message']
-            if msg == 'OAuth Token Generated Successfully':
-                token = x.json()['data']['token']
-                tokens.append(token)
-        else:
-            print("Response:", x.text)
-            print("Could not generate common JWT")
-            return ""
+        token = generateToken(url, headers, payload)
+        count += 1
+        while token == "Rate Limit Exceeded":
+            print(f"Rate Limit Exceeded for count {str(count)}, Retrying in 8 seconds...")
+            time.sleep(8)  # Wait for 60 seconds before retrying
+            token = generateToken(url, headers, payload)
+        if token:
+            tokens.append(token)
     return tokens
 
 
