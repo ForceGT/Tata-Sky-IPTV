@@ -42,7 +42,7 @@ def processTokenChunks(channelList):
         if not isOttNavigator:
             kodiPropLicenseUrl += "|Content-Type=application/octet-stream|R{SSM}|"
 
-        m3ustr += f"{kodiPropLicenseType}\n{kodiPropLicenseUrl}\n#EXTINF:-1 tvg-id=\"{channel['channel_id']}\" group-title=\"{channel['channel_genre']}\" tvg-logo=\"{channel['channel_logo']}\",{channel['channel_name']}\n{channel['channel_url']}\n\n"
+m3ustr += f"{kodiPropLicenseType}\n{kodiPropLicenseUrl}\n#EXTINF:-1 tvg-id=\"{channel['channel_id']}\" group-title=\"{channel['channel_genre']}\" tvg-logo=\"{channel['channel_logo']}\",{channel['channel_name']}\n 'https://tplay-mpd.vercel.app/{channel['channel_id']}.mpd'\n\n"
 
 
 def m3ugen():
